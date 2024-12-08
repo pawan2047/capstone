@@ -209,12 +209,7 @@
             }
         });
 
-        xhr.open('POST', 'https://online-code-compiler.p.rapidapi.com/v1/');
-        xhr.setRequestHeader('x-rapidapi-key', 'd3dfff1ac0msh311292519da91c4p17dab9jsna2ce47125585');
-        xhr.setRequestHeader('x-rapidapi-host', 'online-code-compiler.p.rapidapi.com');
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        xhr.send(data);
+       
     });
 
     // Show Answer Button Event
