@@ -42,7 +42,10 @@
     <!-- Question Section -->
     <div class="bg-blue-100 p-4 rounded-md mb-6">
         <h2 class="text-lg font-semibold text-blue-700">Question:</h2>
-        <p class="text-gray-700 mt-2">Write a program to print <code>Hello, World!</code>.</p>
+       
+        <?php
+        include 'question.php';
+        ?>
     </div>
 
     <!-- Code Input Section -->
@@ -76,6 +79,17 @@
             class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none">
             Show Answer
         </button>
+
+         <!-- Next Question Button -->
+        <button id="next-question"
+        class="px-6 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none">
+        Next Question
+    </button>
+
+    
+
+
+
     </div>
 
     <!-- Output Section -->
@@ -114,17 +128,17 @@
     });
 
     // Function to send the message
+
+    // Function to send the message along with the code and language context
     function sendMessage() {
     const chatInput = document.getElementById('chat-input');
     const chatContent = document.getElementById('chat-content');
-
     if (chatInput.value.trim()) {
         // Display the user's message in the chatbox
         const message = document.createElement('div');
         message.className = 'bg-blue-500 text-white p-2 rounded-lg mb-2 self-end';
         message.textContent = chatInput.value;
         chatContent.appendChild(message);
-
         // Send the message to PHP to get the ChatGPT response
         fetch('get_response.php', {
             method: 'POST',
@@ -143,16 +157,12 @@
         .catch(error => {
             console.error('Error:', error);
         });
-
         // Clear the input
         chatInput.value = '';
     }
 }
-
-
     // Send message when clicking the "Send" button
     document.getElementById('send-message').addEventListener('click', sendMessage);
-
     // Send message when pressing Enter in the chat input
     document.getElementById('chat-input').addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
@@ -160,6 +170,8 @@
             sendMessage();
         }
     });
+
+    
 </script>
 
 <script>
@@ -181,49 +193,85 @@
 
     // Run Code Button Event
     document.getElementById('run-code').addEventListener('click', () => {
-        const language = document.getElementById('language-select').value;
-        const codeInput = document.getElementById('code-input').value;
-        const codeOutput = document.getElementById('code-output');
+        const language = document.getElementById('language-select').value; // Get selected language
+    const question = document.querySelector(".bg-blue-100 p").textContent.trim(); // Get the question text
+    const codeOutput = document.getElementById('code-output'); // Output element
 
-        // Show loading message while the code is being processed
-        codeOutput.textContent = "Loading...";
+    // Show loading message
+    codeOutput.textContent = "Processing your question...";
 
-        const data = JSON.stringify({
-            language: languageMap[language],
-            version: 'latest',
-            code: codeInput,
-            input: null
-        });
+    // Send the question to RapidAPI
+    const data = JSON.stringify({
+        language: languageMap[language], // Map frontend language selection to RapidAPI's language identifier
+        version: 'latest', // Use the latest version
+        code: /* Question: ${question} */, // Attach the question as a comment in the code
+        input: null
+    });
 
-        const xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+    const xhr = new XMLHttpRequest();
+    xhr.withCredentials = false;
 
-        xhr.addEventListener('readystatechange', function () {
-            if (this.readyState === this.DONE) {
-                try {
-                    const response = JSON.parse(this.responseText);
-                    codeOutput.textContent = response.output || 'No output or execution error.';
-                } catch (error) {
-                    codeOutput.textContent = 'Error parsing response.';
-                }
+    xhr.addEventListener('readystatechange', function () {
+        if (this.readyState === this.DONE) {
+            try {
+                const response = JSON.parse(this.responseText);
+                codeOutput.textContent = response.output || 'No output or execution error.';
+            } catch (error) {
+                codeOutput.textContent = 'Error parsing response.';
             }
-        });
+        }
+    });
 
-        xhr.open('POST', 'https://online-code-compiler.p.rapidapi.com/v1/');
-        xhr.setRequestHeader('x-rapidapi-key', 'd3dfff1ac0msh311292519da91c4p17dab9jsna2ce47125585');
-        xhr.setRequestHeader('x-rapidapi-host', 'online-code-compiler.p.rapidapi.com');
-        xhr.setRequestHeader('Content-Type', 'application/json');
 
-        xhr.send(data);
+    xhr.open('POST', 'https://online-code-compiler.p.rapidapi.com/v1/');
+xhr.setRequestHeader('x-rapidapi-key', 'd3dfff1ac0msh311292519da91c4p17dab9jsna2ce47125585');
+xhr.setRequestHeader('x-rapidapi-host', 'online-code-compiler.p.rapidapi.com');
+xhr.setRequestHeader('Content-Type', 'application/json');
+
+xhr.send(data);
     });
 
     // Show Answer Button Event
-    document.getElementById('show-answer').addEventListener('click', () => {
+    
+
+
+</script>
+
+<script>
+    let currentId = 1; // Start with question ID 1
+
+// Event Listener for the Next Question Button
+document.getElementById('next-question').addEventListener('click', () => {
+    currentId++; // Increment the question ID
+
+    // Fetch the next question from the server
+    fetch(`question.php?id=${currentId}`) // ✅ Corrected string interpolation
+        .then(response => response.text()) // Expect text response
+        .then(data => {
+            // ✅ Ensure there's an element with class 'bg-blue-100'
+            const questionContainer = document.querySelector('.bg-blue-100');
+            if (questionContainer) {
+                questionContainer.innerHTML = `<h2 class="text-lg font-semibold text-blue-700">Question:</h2><p>${data}</p>`;
+            } else {
+                console.error("Error: Question container not found.");
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching the next question:', error);
+        });
+});
+
+// Show Answer Button Event
+document.getElementById('show-answer').addEventListener('click', () => {
         const language = document.getElementById('language-select').value;
         const codeOutput = document.getElementById('code-output');
         codeOutput.textContent = `Correct Answer:\n${answers[language]}`;
     });
+
+
 </script>
+
+
 
 </body>
 
