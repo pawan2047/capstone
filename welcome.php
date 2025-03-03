@@ -14,6 +14,7 @@
 
 <script src="https://unpkg.com/prettier/standalone.js"></script>
 <script src="https://unpkg.com/@prettier/plugin-php/standalone.js"></script>
+<script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
 </head>
 <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -32,20 +33,83 @@
 
 <body class="bg-gray-100 min-h-screen">
 
-<nav class="border-gray-200 bg-blue-600 dark:bg-blue-600 dark:border-gray-700 mb-8">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">CodingMania</span>
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto   p-4">
+
+        <!-- Website Logo -->
+        <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="" class="h-8" alt="Your Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CODINGMANIA</span>
         </a>
-        <button data-collapse-toggle="navbar-solid-bg" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-solid-bg" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-            </svg>
-        </button>
+
+        <!-- Profile & Mobile Menu -->
+        <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-8  relative">
+            
+            <!-- Profile Button -->
+            <button id="profile-btn" type="button"
+                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+                <span class="sr-only">Open user menu</span>
+                <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+    <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+</div>
+
+<button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600 " type="button">
+<svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+<path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+</svg>
+</button>
+
+                
+            
+
+            
+
+
+
+
+
+            <!-- Dropdown Menu (Initially Hidden) -->
+            <div id="profile-dropdown"
+                class="absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-lg hidden dark:bg-gray-700 dark:divide-gray-600">
+                <div class="px-4 py-3">
+                    <span class="block text-sm text-gray-900 dark:text-white">John Doe</span>
+                    <span class="block text-sm text-gray-500 truncate dark:text-gray-400">john.doe@example.com</span>
+                </div>
+                <ul class="py-2">
+                    <li>
+                        <a href="dashboard.html"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            🏠 Dashboard
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="badges.html"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            🏅 Badges
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="settings.html"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            ⚙️ Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="default.php"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            🚪 Sign Out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
     </div>
 </nav>
+
 
 <div class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
     <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">Multi-language Code Editor</h1>
@@ -71,12 +135,14 @@
     </div>
 
     <!-- Code Input Section -->
-    <div class="flex flex-col space-y-4">
+   <!-- <div class="flex flex-col space-y-4">
         <label for="code-input" class="text-gray-800 font-medium">Write your code:</label>
         <textarea id="code-input" rows="10"
             class="w-full p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Write your code here..."></textarea>
-    </div>
+    </div>-->
+    <!-- Monaco Code Editor (Renamed ID to 'code-input') -->
+    <div id="code-input" class="border border-gray-300 rounded-md" style="height: 400px; width: 100%;"></div>
 
     <!-- Buttons and Chatbot Section -->
     <div class="flex items-center justify-between mt-4 space-x-4">
@@ -136,6 +202,175 @@
     </div>
 
 </div>
+
+<!-- Sidebar for Table of Contents (initially hidden) -->
+<div id="toc-sidebar" class="fixed top-0 right-0 w-96 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+    <!-- The Table of Contents content will be injected here -->
+     <!-- Close Button -->
+    <button id="toc-close" class="absolute top-2 right-2 p-2 text-gray-700 z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+  // Declare global variables for reuse in all event listeners
+  const sidebar = document.getElementById('toc-sidebar');
+  const dropdownButton = document.getElementById('dropdownMenuIconButton');
+
+  // Toggle the sidebar when the dropdown menu icon button is clicked
+  dropdownButton.addEventListener('click', function(e) {
+    // Prevent click from bubbling up to the document listener
+    e.stopPropagation();
+    
+    if (sidebar.classList.contains('translate-x-full')) {
+      // Load the table of contents if not already loaded
+      if (!sidebar.innerHTML.trim()) {
+        fetch('tableofcontent.php')
+          .then(response => response.text())
+          .then(html => {
+            sidebar.innerHTML = html;
+            
+            // Attach event listener to the close button inside the fetched content if it exists
+            const tocClose = document.getElementById('toc-close');
+            if (tocClose) {
+              tocClose.addEventListener('click', function() {
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('translate-x-full');
+              });
+            }
+          })
+          .catch(error => console.error('Error loading table of contents:', error));
+      }
+      // Show the sidebar
+      sidebar.classList.remove('translate-x-full');
+      sidebar.classList.add('translate-x-0');
+    } else {
+      // Hide the sidebar
+      sidebar.classList.remove('translate-x-0');
+      sidebar.classList.add('translate-x-full');
+    }
+  });
+
+  // Hide sidebar when clicking outside of it
+  document.addEventListener('click', function(e) {
+    // Check if click is outside both the sidebar and the dropdown button
+    if (!sidebar.contains(e.target) && !dropdownButton.contains(e.target)) {
+      sidebar.classList.remove('translate-x-0');
+      sidebar.classList.add('translate-x-full');
+    }
+  });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const profileBtn = document.getElementById("profile-btn");
+    const profileDropdown = document.getElementById("profile-dropdown");
+
+    // Toggle dropdown visibility on click
+    profileBtn.addEventListener("click", () => {
+        profileDropdown.classList.toggle("hidden");
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener("click", (event) => {
+        if (!profileBtn.contains(event.target) && !profileDropdown.contains(event.target)) {
+            profileDropdown.classList.add("hidden");
+        }
+    });
+});
+
+    </script>
+
+    <script>
+    require.config({ paths: { vs: "https://unpkg.com/monaco-editor@latest/min/vs" } });
+
+    require(["vs/editor/editor.main"], function () {
+        let editor = monaco.editor.create(document.getElementById("code-input"), { // ✅ Using ID 'code-input'
+            value: "// Write your code here...",
+            language: "javascript",
+            theme: "vs-dark",
+            automaticLayout: true,
+            lineNumbers: "on", // Always display line numbers
+            minimap: { enabled: true }, // Show minimap
+            wordWrap: "on", 
+            fontSize: 14,
+            scrollBeyondLastLine: false,
+            glyphMargin: true, // Extra space for debugging markers
+        });
+
+        // Language mapping for API
+        const languageMap = {
+            javascript: "nodejs",
+            python: "python3",
+            php: "php",
+            cpp: "cpp"
+        };
+
+        // Change language in Monaco Editor
+        document.getElementById("language-select").addEventListener("change", function () {
+            let selectedLanguage = this.value;
+            monaco.editor.setModelLanguage(editor.getModel(), languageMap[selectedLanguage] || "javascript");
+        });
+        
+
+        // Run Code Button Event (Using API)
+        document.getElementById("run-code").addEventListener("click", () => {
+            console.log("Run Code button clicked!"); // Debugging Message
+
+            const language = document.getElementById("language-select").value;
+            const codeInput = editor.getValue(); // ✅ Fetch code from Monaco Editor
+            const codeOutput = document.getElementById("code-output");
+
+            if (!codeInput) {
+                codeOutput.textContent = "⚠️ Please enter some code to run.";
+                return;
+            }
+
+            // Show loading message
+            codeOutput.textContent = "⏳ Running code...";
+
+            // Define the correct language mapping for API
+            const requestData = JSON.stringify({
+                language: languageMap[language],
+                version: "latest",
+                code: codeInput,
+                input: ""
+            });
+
+            console.log("🟢 Sending Request to API:", requestData);
+
+            // Call the API
+            fetch('https://online-code-compiler.p.rapidapi.com/v1/', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-rapidapi-key": "d3dfff1ac0msh311292519da91c4p17dab9jsna2ce47125585", // Replace with your actual API Key
+                    "x-rapidapi-host": "online-code-compiler.p.rapidapi.com"
+                },
+                body: requestData
+            })
+            .then(response => response.json()) // Convert response to JSON
+            .then(data => {
+                console.log("✅ API Response:", data);
+
+                if (data.output) {
+                    codeOutput.innerHTML = `<pre style="white-space: pre-wrap; word-wrap: break-word; background-color: #1e1e1e; color: #ffffff; padding: 10px; border-radius: 5px; font-family: 'Courier New', monospace;">${data.output}</pre>`;
+                } else {
+                    codeOutput.textContent = "⚠️ No output or execution error.";
+                }
+            })
+            .catch(error => {
+                console.error('❌ Error calling API:', error);
+                codeOutput.textContent = "⚠️ Error running code.";
+            });
+        });
+    });
+</script>
+
+
 
 <script>
     // Toggle chatbox visibility
@@ -215,7 +450,7 @@
 
 
 // Debugging "Run Code" Button
-document.getElementById('run-code').addEventListener('click', () => {
+/*document.getElementById('run-code').addEventListener('click', () => {
     console.log("Run Code button clicked!"); // Debugging Message
 
     const language = document.getElementById('language-select').value; 
@@ -272,9 +507,9 @@ document.getElementById('run-code').addEventListener('click', () => {
         codeOutput.textContent = "⚠️ Error running code.";
     });
 });
-
+uncomment it
     
-
+*/
 
 // Debugging "Show Answer" Button
 /*document.getElementById('show-answer').addEventListener('click', () => {
@@ -387,6 +622,8 @@ document.getElementById('show-answer').addEventListener('click', () => {
     const selectedLanguage = document.getElementById('language-select').value; // Get selected language
 
     console.log(`🟢 Fetching answer for Question ID: ${questionId}`);
+    // ✅ Clear previous output
+    codeOutput.textContent = ""; 
 
     // Fetch the answer from getanswer.php with the stored question ID
     fetch(`getanswer.php?id=${questionId}&language=${selectedLanguage}`)
@@ -452,6 +689,8 @@ document.getElementById('next-question').addEventListener('click', () => {
 
 
 
+
 </body>
 
 </html>
+    
