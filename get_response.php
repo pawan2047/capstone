@@ -1,6 +1,7 @@
 <?php
 // Define your OpenAI API key
-$apiKey = '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';
+$api = include 'api_keys.php';
+$apiKey = $api['openai_api_key'];
 
 // Get the JSON input
 $input = json_decode(file_get_contents('php://input'), true);

@@ -1,6 +1,7 @@
 <?php
 // Configuration
-$apiKey = 'TFZNe5onqZ97HNmY3T6OwVzvypbZ99daMiRx5Pax'; // Replace with your Firebase API Key
+$api = include 'api_keys.php';
+$apiKey = $api['firebase_api_key']; // Replace with your Firebase API Key
 $projectId = 'codingmania-4fec0'; // Replace with your Firebase Project ID
 $collection = 'users'; // Firestore collection name
 $baseURL = "https://firestore.googleapis.com/v1/projects/$projectId/databases/(default)/documents/$collection";
