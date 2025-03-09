@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Configuration
 $apiKey = 'TFZNe5onqZ97HNmY3T6OwVzvypbZ99daMiRx5Pax'; // Replace with your Firebase API Key
 $projectId = 'codingmania-4fec0'; // Replace with your Firebase Project ID
@@ -47,16 +48,38 @@ function findUser($apiKey, $baseURL, $email, $password) {
     return false;
 }
 
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
-   
+    $remember = isset($_POST['remember-me']); // Check if 'Remember Me' is checked
+
     $error = "Incorrect information"; // Custom error message
 
     // Check if the email and password match an existing user
     if (findUser($apiKey, $baseURL, $email, $password)) {
-        header('Location: welcome.php'); // Redirect to a welcome page or dashboard if login is successful
+        // Set session for the user
+        $_SESSION['username'] = $email;
+
+        // Retrieve existing remembered credentials
+        setcookie("username", $email, time() + (30 * 24 * 60 * 60), "/");
+
+        // Set a cookie if "Remember Me" is checked
+        /*if ($remember) {
+            $rememberedEmails = isset($_COOKIE['remembered_emails']) ? json_decode($_COOKIE['remembered_emails'], true) : [];
+        } // Ensure it's an array and add the new email if it's not already in the list
+       /* if (!in_array($email, $rememberedEmails)) {
+            $rememberedEmails[] = $email;
+        }*/
+        // Ensure it's an array and add new credentials only if they are not already stored
+        if ($remember) {
+            $rememberedCredentials[$email] = base64_encode($password); // Store encoded password for security
+            setcookie("remembered_credentials", json_encode($rememberedCredentials), time() + (86400 * 30), "/"); // Store for 30 days
+        }
+    
+
+        header('Location: welcome.php'); // Redirect to the dashboard
         exit();
     } else {
         header('Location: default.php?error=' . urlencode($error));

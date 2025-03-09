@@ -1,0 +1,6 @@
+{
+    "require": {
+        "kreait/firebase-php": "^5.26",
+        "ktamas77/firebase-php": "^3.0"
+    }
+}

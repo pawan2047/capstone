@@ -23,8 +23,15 @@
             <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">CodingMania</span>
             </div>
 
-            <form action="add.php" method="POST">
+<form action="add.php" method="POST">
     <div class="space-y-6">
+    <div>
+            <label class="text-gray-800 text-sm mb-2 block">Full Name</label>
+            <input name="fullname" type="text"
+                class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                placeholder="Enter your full name " required />
+        </div>
+
         <div>
             <label class="text-gray-800 text-sm mb-2 block">Email Id</label>
             <input name="email" type="text"
