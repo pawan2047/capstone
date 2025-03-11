@@ -408,9 +408,10 @@ if(!$user) {
     // Function to send the message
 
     // Function to send the message along with the code and language context
-    function sendMessage() {
+   /* function sendMessage() {
     const chatInput = document.getElementById('chat-input');
     const chatContent = document.getElementById('chat-content');
+    const currentQuestion = document.getElementById('current-question').value; // Get current question
     if (chatInput.value.trim()) {
         // Display the user's message in the chatbox
         const message = document.createElement('div');
@@ -423,7 +424,7 @@ if(!$user) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ prompt: chatInput.value })
+            body: JSON.stringify({ prompt: currentQuestion.value })
         })
         .then(response => response.json())
         .then(data => {
@@ -447,7 +448,67 @@ if(!$user) {
             event.preventDefault(); // Prevent newline in the input field
             sendMessage();
         }
-    });
+    });*/
+
+    function sendMessage() {
+    const chatInput = document.getElementById('chat-input');
+    const chatContent = document.getElementById('chat-content');
+    const currentQuestion = document.getElementById('current-question').value; // Get current question
+
+    if (chatInput.value.trim()) {
+        // Display the user's message in the chatbox
+        const message = document.createElement('div');
+        message.className = 'bg-blue-500 text-white p-2 rounded-lg mb-2 self-end';
+        message.textContent = chatInput.value;
+        chatContent.appendChild(message);
+
+        // Send the user input as prompt and question as context
+        fetch('get_response.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userMessage: chatInput.value,  // User's typed message
+                questionContext: currentQuestion // The preloaded question for context
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const botMessage = document.createElement('div');
+            botMessage.className = 'bg-gray-300 text-black p-2 rounded-lg mb-2 self-start';
+            botMessage.textContent = data.response;
+            chatContent.appendChild(botMessage);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        // Clear the input
+        chatInput.value = '';
+    }
+}
+
+// Ensure event listeners are attached
+document.addEventListener('DOMContentLoaded', function () {
+    const sendButton = document.getElementById('send-message');
+    const chatInput = document.getElementById('chat-input');
+
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    }
+
+    if (chatInput) {
+        chatInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent newline in input
+                sendMessage();
+            }
+        });
+    }
+});
+
+
+// Send message when clicking the "Send" button
+document.getElementById('send-message').addEventListener('click', sendMessage);
 
     
 </script>
