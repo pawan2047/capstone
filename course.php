@@ -104,8 +104,49 @@ $stmt->close();
               <p class="mb-4 text-gray-700"><?php echo nl2br(htmlspecialchars($module['module_description'])); ?></p>
             <?php endif; ?>
 
-            <!-- Embed welcome.php as a coding environment -->
-            <h3 class="text-lg font-semibold mt-4">Coding Challenge</h3>
+            <!-- Lessons and Videos -->
+            <h3 class="text-lg font-semibold">Lessons & Videos</h3>
+            <ul class="list-disc pl-5">
+              <?php
+              $lessonsQuery = "SELECT * FROM lessons WHERE module_id = ? ORDER BY sort_order ASC";
+              $stmt = $conn->prepare($lessonsQuery);
+              $stmt->bind_param("i", $module['id']);
+              $stmt->execute();
+              $lessonsResult = $stmt->get_result();
+              while ($lesson = $lessonsResult->fetch_assoc()):
+              ?>
+                <li>
+                  <a href="lesson.php?lesson_id=<?= $lesson['id'] ?>" class="text-blue-600 hover:underline">
+                    <?php echo htmlspecialchars($lesson['lesson_title']); ?>
+                  </a>
+                  <?php if (!empty($lesson['video_url'])): ?>
+                    <a href="<?php echo htmlspecialchars($lesson['video_url']); ?>" target="_blank" class="text-blue-500 hover:underline">Watch Video</a>
+                  <?php endif; ?>
+                </li>
+              <?php endwhile; ?>
+            </ul>
+
+            <!-- Quizzes -->
+            <h3 class="text-lg font-semibold mt-4">Quizzes</h3>
+            <ul class="list-disc pl-5">
+              <?php
+              $quizQuery = "SELECT * FROM quizzes WHERE module_id = ? ORDER BY sort_order ASC";
+              $stmt = $conn->prepare($quizQuery);
+              $stmt->bind_param("i", $module['id']);
+              $stmt->execute();
+              $quizResult = $stmt->get_result();
+              while ($quiz = $quizResult->fetch_assoc()):
+              ?>
+                <li>
+                  <a href="quiz.php?quiz_id=<?= $quiz['id'] ?>" class="text-blue-600 hover:underline">
+                    <?php echo htmlspecialchars($quiz['quiz_title']); ?>
+                  </a>
+                </li>
+              <?php endwhile; ?>
+            </ul>
+
+            <!-- Coding Environment -->
+            <h3 class="text-lg font-semibold mt-4">Coding Practice</h3>
             <iframe src="welcome.php?module_id=<?= $module['id'] ?>&question=<?= urlencode($module['coding_question'] ?? 'Solve this problem!') ?>"
                 width="100%" height="500px" frameborder="0"></iframe>
 
@@ -113,7 +154,7 @@ $stmt->close();
             <div class="mt-4">
               <button onclick="completeModule(<?= $course_id ?>, <?= $module['id'] ?>, '<?= urlencode($module['coding_question'] ?? '') ?>')" 
                       class="bg-green-600 hover:bg-green-700 text-white py-2 px-3 rounded transition">
-                Mark as Complete & Code
+                Complete Module & Code
               </button>
             </div>
           </div>
@@ -124,7 +165,6 @@ $stmt->close();
     <?php endif; ?>
   </div>
 
-  <!-- JavaScript for module completion -->
   <script>
     function completeModule(courseId, moduleId, question) {
       alert("Module " + moduleId + " completed! Redirecting to coding practice...");
@@ -132,5 +172,6 @@ $stmt->close();
     }
   </script>
 
-  <!-- Footer -->
-  <footer class="bg-white py-4 mt-10 shadow-inner
+</body>
+</html>
+
