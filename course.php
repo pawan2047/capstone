@@ -259,6 +259,14 @@ $totalModules = count($modules);
                         </ul>
                       </div>
                     <?php endif; ?>
+
+                    <!-- Coding Environment Integration -->
+                    <div class="mt-4">
+                      <a href="welcome.php?course_id=<?= $course_id ?>&chapter_id=<?= $chapter['id'] ?>" class="bg-purple-500 hover:bg-purple-600 text-white py-2 px-3 rounded transition">
+                        Enter Coding Environment
+                      </a>
+                    </div>
+
                   </div>
                 <?php endforeach; ?>
               </div>
@@ -266,7 +274,7 @@ $totalModules = count($modules);
               <p class="text-gray-600">No chapters available for this module.</p>
             <?php endif; ?>
 
-           
+            <!-- Module Completion Button -->
             <?php
             // Each module contributes equally. Calculate the threshold percentage for this module.
             $moduleThreshold = ceil(($module['sort_order'] / $totalModules) * 100);
