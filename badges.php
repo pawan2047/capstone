@@ -45,4 +45,52 @@ $stmt->close();
             <th class="px-4 py-2 text-left">Badge Earned</th>
           </tr>
         </thead>
+
+          <tbody class="bg-white divide-y divide-gray-200">
+          <?php if (!empty($progress_data)): ?>
+            <?php foreach ($progress_data as $course): ?>
+              <?php 
+                $badge = '';
+                $badgeImage = '';
+                if ($course['completed'] >= 80) {
+                    $badge = 'Pro Badge';
+                    $badgeImage = 'pro_badge.png';
+                } elseif ($course['completed'] >= 60) {
+                    $badge = 'Intermediate Badge';
+                    $badgeImage = 'intermediate_badge.png';
+                } elseif ($course['completed'] >= 20) {
+                    $badge = 'Beginner Badge';
+                    $badgeImage = 'beginner_badge.png';
+                } else {
+                    $badge = 'No badge earned';
+                }
+              ?>
+              <tr>
+                <td class="px-4 py-2"><?= htmlspecialchars($course['course_name']) ?></td>
+                <td class="px-4 py-2"><?= htmlspecialchars($course['completed']) ?>%</td>
+                <td class="px-4 py-2">
+                  <?php if ($badge != 'No badge earned'): ?>
+                    <div class="flex items-center space-x-2">
+                      <img src="<?= $badgeImage ?>" alt="<?= $badge ?>" class="h-10">
+                      <span><?= $badge ?></span>
+                    </div>
+                  <?php else: ?>
+                    <?= $badge ?>
+                  <?php endif; ?>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="3" class="px-4 py-2 text-center text-gray-500">No badge data available.</td>
+            </tr>
+          <?php endif; ?>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center mt-6">
+      <a href="dashboard.php" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-150">Back to Dashboard</a>
+    </div>
+  </div>
+</body>
 </html>
