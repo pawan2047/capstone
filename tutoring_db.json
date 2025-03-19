@@ -1,0 +1,213 @@
+[
+{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"tutoring_db"},
+{"type":"table","name":"capstone_projects","database":"tutoring_db","data":
+[
+{"id":"1","student_id":"1","project_title":"Final Python Project","project_description":"A project integrating course concepts.","submitted_at":"2025-03-05 08:28:45"}
+]
+}
+,{"type":"table","name":"certificates","database":"tutoring_db","data":
+[
+{"id":"1","student_id":"1","course_id":"1","issued_at":"2025-03-05 08:28:45"}
+]
+}
+,{"type":"table","name":"chapters","database":"tutoring_db","data":
+[
+{"id":"1","module_id":"1","chapter_name":"Chapter 1: Introduction to Python","chapter_description":"Learn the basics and set up Python.","sort_order":"1"},
+{"id":"2","module_id":"2","chapter_name":"Chapter 1: Python Basics","chapter_description":"Learn syntax, variables, and data types.","sort_order":"1"},
+{"id":"3","module_id":"3","chapter_name":"Chapter 1: Control Structures","chapter_description":"Learn conditionals and loops.","sort_order":"1"},
+{"id":"4","module_id":"4","chapter_name":"Chapter 1: Functions","chapter_description":"Learn to define and call functions.","sort_order":"1"},
+{"id":"5","module_id":"5","chapter_name":"Chapter 1: Data Structures","chapter_description":"Learn about lists, tuples, and dictionaries.","sort_order":"1"},
+{"id":"6","module_id":"6","chapter_name":"Chapter 1: File I\/O","chapter_description":"Learn file operations.","sort_order":"1"},
+{"id":"7","module_id":"7","chapter_name":"Chapter 1: Exception Handling","chapter_description":"Learn to handle exceptions.","sort_order":"1"},
+{"id":"8","module_id":"8","chapter_name":"Chapter 1: Object-Oriented Programming","chapter_description":"Learn about classes and objects.","sort_order":"1"},
+{"id":"9","module_id":"9","chapter_name":"Chapter 1: Advanced Topics","chapter_description":"Learn advanced Python topics.","sort_order":"1"},
+{"id":"10","module_id":"10","chapter_name":"Chapter 1: Capstone Project","chapter_description":"Plan your final project.","sort_order":"1"},
+{"id":"11","module_id":"11","chapter_name":"Chapter 1: Getting Started with C++","chapter_description":"Set up your C++ environment and write your first program.","sort_order":"1"},
+{"id":"12","module_id":"12","chapter_name":"Chapter 1: Basic Syntax and Data Types","chapter_description":"Learn C++ syntax and basic data types.","sort_order":"1"},
+{"id":"13","module_id":"13","chapter_name":"Chapter 1: Control Structures","chapter_description":"Practice conditionals and loops in C++.","sort_order":"1"},
+{"id":"14","module_id":"14","chapter_name":"Chapter 1: Arrays and Strings","chapter_description":"Learn about arrays and C-style strings.","sort_order":"1"},
+{"id":"15","module_id":"15","chapter_name":"Chapter 1: Pointers and Memory Management","chapter_description":"Introduction to pointers and dynamic memory allocation.","sort_order":"1"},
+{"id":"16","module_id":"16","chapter_name":"Chapter 1: Classes and Objects","chapter_description":"Define classes and create objects in C++.","sort_order":"1"},
+{"id":"17","module_id":"17","chapter_name":"Chapter 1: Inheritance and Polymorphism","chapter_description":"Understand inheritance and polymorphism in C++.","sort_order":"1"},
+{"id":"18","module_id":"18","chapter_name":"Chapter 1: Templates and STL","chapter_description":"Learn about templates and using STL containers.","sort_order":"1"},
+{"id":"19","module_id":"19","chapter_name":"Chapter 1: Exception Handling and File I\/O","chapter_description":"Learn to handle exceptions and perform file I\/O.","sort_order":"1"},
+{"id":"20","module_id":"20","chapter_name":"Chapter 1: Advanced C++ Topics","chapter_description":"Explore modern C++ features and prepare for a capstone project.","sort_order":"1"}
+]
+}
+,{"type":"table","name":"courses","database":"tutoring_db","data":
+[
+{"id":"1","course_name":"Python Course","description":"A comprehensive Python course covering basics to advanced."},
+{"id":"2","course_name":"C++ Course","description":"Learn the fundamentals and advanced topics of C++."},
+{"id":"3","course_name":"Java Course","description":"Master Java programming from scratch."},
+{"id":"4","course_name":"Web Development Course","description":"Learn front-end and back-end web development."}
+]
+}
+,{"type":"table","name":"lessons","database":"tutoring_db","data":
+[
+{"id":"1","chapter_id":"1","lesson_title":"Lesson: Hello, World!","lecture_content":"This lesson teaches you to write and run your first Python script.","video_url":"https:\/\/www.youtube.com\/shorts\/nluUYtejoIE","sort_order":"1"},
+{"id":"2","chapter_id":"2","lesson_title":"Lesson: Variables","lecture_content":"Learn how to declare and use variables in Python.","video_url":"https:\/\/www.youtube.com\/watch?v=7IoQ5BGkTJo","sort_order":"1"},
+{"id":"3","chapter_id":"3","lesson_title":"Lesson: Loops and Conditionals","lecture_content":"Learn to use if statements and loops in Python.","video_url":"https:\/\/www.youtube.com\/watch?v=FvMPfrgGeKs","sort_order":"1"},
+{"id":"4","chapter_id":"4","lesson_title":"Lesson: Functions","lecture_content":"Learn how to create and call functions.","video_url":"https:\/\/www.youtube.com\/watch?v=89cGQjB5R4M","sort_order":"1"},
+{"id":"5","chapter_id":"5","lesson_title":"Lesson: Lists and Tuples","lecture_content":"Learn about lists and tuples.","video_url":"https:\/\/www.youtube.com\/watch?v=gOMW_n2-2Mw","sort_order":"1"},
+{"id":"6","chapter_id":"6","lesson_title":"Lesson: File Operations","lecture_content":"Learn how to perform file I\/O in Python.","video_url":"https:\/\/www.youtube.com\/watch?v=gOMW_n2-2Mw","sort_order":"1"},
+{"id":"7","chapter_id":"7","lesson_title":"Lesson: Exception Handling","lecture_content":"Learn how to handle errors using try-catch.","video_url":"https:\/\/www.youtube.com\/watch?v=NIWwJbo-9_8","sort_order":"1"},
+{"id":"8","chapter_id":"8","lesson_title":"Lesson: Classes","lecture_content":"Learn to create classes and objects in Python.","video_url":"https:\/\/www.youtube.com\/watch?v=ZDa-Z5JzLYM","sort_order":"1"},
+{"id":"9","chapter_id":"9","lesson_title":"Lesson: Advanced Python","lecture_content":"Learn advanced topics like decorators and generators.","video_url":"https:\/\/www.example.com\/python-advanced.mp4","sort_order":"1"},
+{"id":"10","chapter_id":"10","lesson_title":"Lesson: Capstone Project","lecture_content":"Plan your final Python project.","video_url":"https:\/\/www.youtube.com\/watch?v=qS4mvrWWO_M","sort_order":"1"},
+{"id":"11","chapter_id":"11","lesson_title":"Lesson: Hello, World! in C++","lecture_content":"Write and run your first C++ program.","video_url":"https:\/\/www.youtube.com\/watch?v=VWJWUR-UnzQ","sort_order":"1"},
+{"id":"12","chapter_id":"12","lesson_title":"Lesson: Variables in C++","lecture_content":"Learn how to declare and use variables in C++.","video_url":"https:\/\/www.youtube.com\/watch?v=vSTesJdgRCU","sort_order":"1"},
+{"id":"13","chapter_id":"3","lesson_title":"Lesson: If Statements and Loops","lecture_content":"Understand conditionals and loops in C++.","video_url":"https:\/\/www.youtube.com\/watch?v=kfZEZj1IOBE","sort_order":"1"},
+{"id":"14","chapter_id":"14","lesson_title":"Lesson: Working with Arrays","lecture_content":"Learn array declaration and iteration.","video_url":"https:\/\/www.youtube.com\/watch?v=eE9MnoS0lc0","sort_order":"1"},
+{"id":"15","chapter_id":"15","lesson_title":"Lesson: Pointers in C++","lecture_content":"Learn pointer basics and memory allocation.","video_url":"https:\/\/www.youtube.com\/watch?v=slzcWKWCMBg","sort_order":"1"},
+{"id":"16","chapter_id":"16","lesson_title":"Lesson: Defining Classes","lecture_content":"Learn how to define and use classes in C++.","video_url":"https:\/\/www.youtube.com\/watch?v=W1CjYKmTB-c","sort_order":"1"},
+{"id":"17","chapter_id":"17","lesson_title":"Lesson: Inheritance Basics","lecture_content":"Understand inheritance and virtual functions in C++.","video_url":"https:\/\/www.youtube.com\/watch?v=rJlJ8qqVm3k","sort_order":"1"},
+{"id":"18","chapter_id":"18","lesson_title":"Lesson: Introduction to Templates","lecture_content":"Learn about templates and basic STL usage.","video_url":"https:\/\/www.youtube.com\/watch?v=mQqzP9EWu58","sort_order":"1"},
+{"id":"19","chapter_id":"19","lesson_title":"Lesson: Exception Handling","lecture_content":"Learn to handle exceptions in C++.","video_url":"https:\/\/www.youtube.com\/watch?v=5nCXSDv6e4I","sort_order":"1"},
+{"id":"20","chapter_id":"20","lesson_title":"Lesson: Modern C++ Features","lecture_content":"Explore lambda expressions, smart pointers, and multithreading.","video_url":"https:\/\/www.youtube.com\/watch?v=UOB7-B2MfwA","sort_order":"1"}
+]
+}
+,{"type":"table","name":"modules","database":"tutoring_db","data":
+[
+{"id":"1","course_id":"1","module_name":"Module 1: Introduction and Setup","module_description":"Introduction to Python and environment setup.","sort_order":"1"},
+{"id":"2","course_id":"1","module_name":"Module 2: Basics","module_description":"Learn basic Python syntax, variables, and data types.","sort_order":"2"},
+{"id":"3","course_id":"1","module_name":"Module 3: Control Structures","module_description":"Learn conditionals and loops.","sort_order":"3"},
+{"id":"4","course_id":"1","module_name":"Module 4: Functions","module_description":"Learn to write and use functions.","sort_order":"4"},
+{"id":"5","course_id":"1","module_name":"Module 5: Data Structures","module_description":"Learn about lists, tuples, and dictionaries.","sort_order":"5"},
+{"id":"6","course_id":"1","module_name":"Module 6: File I\/O","module_description":"Learn to read from and write to files.","sort_order":"6"},
+{"id":"7","course_id":"1","module_name":"Module 7: Exception Handling","module_description":"Learn how to handle exceptions.","sort_order":"7"},
+{"id":"8","course_id":"1","module_name":"Module 8: OOP","module_description":"Introduction to classes and objects.","sort_order":"8"},
+{"id":"9","course_id":"1","module_name":"Module 9: Advanced Topics","module_description":"Learn advanced Python topics.","sort_order":"9"},
+{"id":"10","course_id":"1","module_name":"Module 10: Capstone Project","module_description":"Final project integrating all topics.","sort_order":"10"},
+{"id":"11","course_id":"2","module_name":"Module 1: Introduction & Setup","module_description":"Introduction to C++ and environment setup.","sort_order":"1"},
+{"id":"12","course_id":"2","module_name":"Module 2: Basic Syntax & Data Types","module_description":"Learn basic C++ syntax, variables, and data types.","sort_order":"2"},
+{"id":"13","course_id":"2","module_name":"Module 3: Control Structures","module_description":"Learn conditionals and loops in C++.","sort_order":"3"},
+{"id":"14","course_id":"2","module_name":"Module 4: Functions","module_description":"Learn to define and call functions in C++.","sort_order":"4"},
+{"id":"15","course_id":"2","module_name":"Module 5: Arrays & Strings","module_description":"Learn about arrays and C-style strings.","sort_order":"5"},
+{"id":"16","course_id":"2","module_name":"Module 6: Pointers & Memory","module_description":"Learn about pointers and dynamic memory allocation.","sort_order":"6"},
+{"id":"17","course_id":"2","module_name":"Module 7: Object-Oriented Programming","module_description":"Introduction to classes and objects in C++.","sort_order":"7"},
+{"id":"18","course_id":"2","module_name":"Module 8: Advanced OOP","module_description":"Learn inheritance, polymorphism, and virtual functions.","sort_order":"8"},
+{"id":"19","course_id":"2","module_name":"Module 9: Templates & STL","module_description":"Learn about templates and the STL.","sort_order":"9"},
+{"id":"20","course_id":"2","module_name":"Module 10: Advanced Topics","module_description":"Modern C++ features and project-based applications.","sort_order":"10"}
+]
+}
+,{"type":"table","name":"peer_posts","database":"tutoring_db","data":
+[
+{"id":"1","user_id":"1","content":"Great course!","created_at":"2025-03-05 08:28:45"}
+]
+}
+,{"type":"table","name":"peer_reviews","database":"tutoring_db","data":
+[
+{"id":"1","student_id":"1","reviewer_id":"2","review_text":"Very helpful!","rating":"5"}
+]
+}
+,{"type":"table","name":"quizzes","database":"tutoring_db","data":
+[
+{"id":"1","chapter_id":"11","quiz_title":"Quiz: C++ Introduction","quiz_content":"Test your knowledge on setting up C++ and writing your first program.","sort_order":"1"},
+{"id":"2","chapter_id":"12","quiz_title":"Quiz: C++ Basics","quiz_content":"Test your understanding of variables and basic types in C++.","sort_order":"1"},
+{"id":"3","chapter_id":"3","quiz_title":"Quiz: Control Structures","quiz_content":"Test your knowledge on loops and conditionals in C++.","sort_order":"1"},
+{"id":"4","chapter_id":"14","quiz_title":"Quiz: Arrays and Strings","quiz_content":"Test your understanding of arrays and C-style strings in C++.","sort_order":"1"},
+{"id":"5","chapter_id":"15","quiz_title":"Quiz: Pointers","quiz_content":"Test your grasp on pointers and dynamic memory allocation.","sort_order":"1"},
+{"id":"6","chapter_id":"16","quiz_title":"Quiz: OOP in C++","quiz_content":"Test your knowledge on classes and objects.","sort_order":"1"},
+{"id":"7","chapter_id":"17","quiz_title":"Quiz: Inheritance","quiz_content":"Test your understanding of inheritance and polymorphism.","sort_order":"1"},
+{"id":"8","chapter_id":"18","quiz_title":"Quiz: Templates and STL","quiz_content":"Test your knowledge on templates and using the STL.","sort_order":"1"},
+{"id":"9","chapter_id":"19","quiz_title":"Quiz: Exception Handling","quiz_content":"Test your knowledge on error handling in C++.","sort_order":"1"},
+{"id":"10","chapter_id":"20","quiz_title":"Quiz: Advanced C++","quiz_content":"Test your understanding of modern C++ features.","sort_order":"1"}
+]
+}
+,{"type":"table","name":"quiz_questions","database":"tutoring_db","data":
+[
+{"id":"1","quiz_id":"1","question_text":"What is the correct file extension for a C++ source file?","option_a":".cpp","option_b":".cxx","option_c":".cc","option_d":"All of the above","correct_option":"D"},
+{"id":"2","quiz_id":"1","question_text":"Which of the following is the correct syntax for the main function in C++?","option_a":"int main()","option_b":"void main()","option_c":"main()","option_d":"public static void main()","correct_option":"A"},
+{"id":"3","quiz_id":"1","question_text":"Which of the following is required to compile and run a C++ program?","option_a":"An interpreter","option_b":"A web browser","option_c":"A compiler","option_d":"A text editor","correct_option":"C"},
+{"id":"4","quiz_id":"1","question_text":"Which command is used to compile a C++ program using the g++ compiler in Linux?","option_a":"g++ program.cpp -o program","option_b":"compile program.cpp","option_c":"run program.cpp","option_d":"cpp program.cpp","correct_option":"A"},
+{"id":"5","quiz_id":"1","question_text":"What will be the output of the following C++ program?\n\n#include <iostream>\nusing namespace std;\nint main() {\n    cout << \"Hello, World!\";\n    return 0;\n}","option_a":"Hello, World!","option_b":"Hello, World! (on a new line)","option_c":"Compilation error","option_d":"Runtime error","correct_option":"A"},
+{"id":"6","quiz_id":"1","question_text":"What is the purpose of #include <iostream> in a C++ program?","option_a":"To include the main function","option_b":"To enable input and output operations","option_c":"To define a class","option_d":"To declare variables","correct_option":"B"},
+{"id":"7","quiz_id":"1","question_text":"What does using namespace std; do in a C++ program?","option_a":"It allows the use of standard library functions without prefixing them with std::","option_b":"It defines a new namespace","option_c":"It is required in every C++ program","option_d":"It has no effect","correct_option":"A"},
+{"id":"8","quiz_id":"1","question_text":"Which statement is used to take input from the user in C++?","option_a":"cin >>","option_b":"cout <<","option_c":"scanf()","option_d":"input()","correct_option":"A"},
+{"id":"9","quiz_id":"1","question_text":"What is the return type of the main() function in C++?","option_a":"void","option_b":"int","option_c":"char","option_d":"float","correct_option":"B"},
+{"id":"10","quiz_id":"1","question_text":"What happens if the return 0; statement is missing in the main() function?","option_a":"The program will not compile","option_b":"It will result in a runtime error","option_c":"It may still work, as returning 0 is optional in newer compilers","option_d":"The program will always crash","correct_option":"C"},
+{"id":"11","quiz_id":"2","question_text":"Which of the following is a valid way to declare an integer variable in C++?","option_a":"int x;","option_b":"integer x;","option_c":"var x;","option_d":"num x;","correct_option":"A"},
+{"id":"12","quiz_id":"2","question_text":"What is the size of an int in C++ (assuming a 32-bit system)?","option_a":"2 bytes","option_b":"4 bytes","option_c":"8 bytes","option_d":"System dependent","correct_option":"B"},
+{"id":"13","quiz_id":"2","question_text":"What is the correct syntax to declare a constant variable in C++?","option_a":"constant int x = 10;","option_b":"#define x 10","option_c":"const int x = 10;","option_d":"var x = 10;","correct_option":"C"},
+{"id":"14","quiz_id":"2","question_text":"Which of the following is the correct way to initialize a float variable?","option_a":"float x = 10.5;","option_b":"float x = 10;","option_c":"float x = 10.5f;","option_d":"All of the above","correct_option":"D"},
+{"id":"15","quiz_id":"2","question_text":"What is the range of values that a char variable can store?","option_a":"-128 to 127","option_b":"0 to 255","option_c":"0 to 127","option_d":"-256 to 255","correct_option":"A"},
+{"id":"16","quiz_id":"2","question_text":"Which data type should be used to store a large integer value (greater than int limits)?","option_a":"short","option_b":"float","option_c":"long long","option_d":"double","correct_option":"C"},
+{"id":"17","quiz_id":"2","question_text":"What will be the output of the following C++ code?\n\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    float b = 2.5;\n    cout << a + b;\n    return 0;\n}","option_a":"7","option_b":"7.5","option_c":"5.25","option_d":"Compilation error","correct_option":"B"},
+{"id":"18","quiz_id":"2","question_text":"Which of the following correctly declares a boolean variable in C++?","option_a":"bool flag = true;","option_b":"boolean flag = 1;","option_c":"int flag = True;","option_d":"var flag = true;","correct_option":"A"},
+{"id":"19","quiz_id":"2","question_text":"What happens if a variable is declared but not initialized?","option_a":"It holds a default value of 0","option_b":"It holds a garbage (random) value","option_c":"The program will not compile","option_d":"The program will crash","correct_option":"B"},
+{"id":"20","quiz_id":"2","question_text":"Which of the following correctly represents a double-precision floating-point number in C++?","option_a":"double x = 10.5;","option_b":"float x = 10.5;","option_c":"long double x = 10.5;","option_d":"Both a and c","correct_option":"D"},
+{"id":"21","quiz_id":"3","question_text":"Which of the following is the correct syntax for an if statement in C++?","option_a":"if condition then {}","option_b":"if (condition) {}","option_c":"if {condition} then {}","option_d":"if condition: {}","correct_option":"B"},
+{"id":"22","quiz_id":"3","question_text":"What is the output of the following code?\n\nint x = 10;\nif (x > 5)\n    cout << \"Greater\";\nelse\n    cout << \"Smaller\";","option_a":"Greater","option_b":"Smaller","option_c":"Compilation Error","option_d":"No output","correct_option":"A"},
+{"id":"23","quiz_id":"3","question_text":"How many times will the loop run?\n\nfor (int i = 0; i < 5; i++) { cout << i; }","option_a":"4 times","option_b":"5 times","option_c":"6 times","option_d":"Infinite loop","correct_option":"B"},
+{"id":"24","quiz_id":"3","question_text":"What is the purpose of the break statement in loops?","option_a":"To skip the current iteration","option_b":"To exit the loop immediately","option_c":"To repeat the loop","option_d":"To end the program","correct_option":"B"},
+{"id":"25","quiz_id":"3","question_text":"What will be the output of this while loop?\n\nint i = 0;\nwhile (i < 3) {\n    cout << i;\n    i++;\n}","option_a":"012","option_b":"123","option_c":"01","option_d":"Infinite loop","correct_option":"A"},
+{"id":"26","quiz_id":"3","question_text":"What is the correct way to implement a do-while loop?","option_a":"do while (condition) {}","option_b":"do { } while (condition);","option_c":"while (condition) do {}","option_d":"repeat { } until (condition);","correct_option":"B"},
+{"id":"27","quiz_id":"3","question_text":"What will the following code print?\n\nfor (int i = 1; i <= 5; i++) {\n    if (i == 3) break;\n    cout << i;\n}","option_a":"12345","option_b":"12","option_c":"345","option_d":"15","correct_option":"B"},
+{"id":"28","quiz_id":"3","question_text":"What is the use of the continue statement in loops?","option_a":"To stop the loop execution","option_b":"To skip the current iteration and move to the next","option_c":"To exit the loop","option_d":"To pause the loop","correct_option":"B"},
+{"id":"29","quiz_id":"3","question_text":"What will be the output of the following nested loop?\n\nfor (int i = 1; i <= 2; i++) {\n    for (int j = 1; j <= 2; j++) {\n        cout << i << j << \" \";\n    }\n}","option_a":"11 12 21 22","option_b":"12 21","option_c":"1122","option_d":"2211","correct_option":"A"},
+{"id":"30","quiz_id":"3","question_text":"What will happen if the condition in a while loop is always true?","option_a":"The loop will execute a fixed number of times","option_b":"The program will terminate","option_c":"The loop will run indefinitely (infinite loop)","option_d":"The loop will not run at all","correct_option":"C"},
+{"id":"31","quiz_id":"4","question_text":"How do you declare an array of 5 integers in C++?","option_a":"int arr(5);","option_b":"int arr[5];","option_c":"array<int, 5> arr;","option_d":"int arr = new int[5];","correct_option":"B"},
+{"id":"32","quiz_id":"4","question_text":"What is the index of the first element in a C++ array?","option_a":"0","option_b":"1","option_c":"-1","option_d":"It depends on the compiler","correct_option":"A"},
+{"id":"33","quiz_id":"4","question_text":"What happens if you access an array index out of its bounds in C++?","option_a":"It throws an error","option_b":"It results in undefined behavior","option_c":"It resets to the first index","option_d":"The compiler automatically fixes it","correct_option":"B"},
+{"id":"34","quiz_id":"4","question_text":"Which of the following correctly initializes a C-style string?","option_a":"char str[] = \"Hello\";","option_b":"char str[6] = \"Hello\";","option_c":"char str[] = {'H', 'e', 'l', 'l', 'o', '\\0'};","option_d":"All of the above","correct_option":"D"},
+{"id":"35","quiz_id":"4","question_text":"How do you properly access the last element of an array named arr with n elements?","option_a":"arr[n]","option_b":"arr[n-1]","option_c":"arr[n+1]","option_d":"arr[-1]","correct_option":"B"},
+{"id":"36","quiz_id":"4","question_text":"What is the default value of an uninitialized array of integers in C++?","option_a":"0","option_b":"-1","option_c":"Garbage values","option_d":"Compiler error","correct_option":"C"},
+{"id":"37","quiz_id":"4","question_text":"Which function is used to copy one C-style string to another?","option_a":"strcpy()","option_b":"strcat()","option_c":"strcopy()","option_d":"copystr()","correct_option":"A"},
+{"id":"38","quiz_id":"4","question_text":"How do you find the length of a C-style string?","option_a":"strlen(str)","option_b":"length(str)","option_c":"str.len()","option_d":"str.size()","correct_option":"A"},
+{"id":"39","quiz_id":"4","question_text":"What happens if you assign one C-style string to another using =?","option_a":"The contents are copied","option_b":"It causes a compilation error","option_c":"A pointer to the string is assigned","option_d":"The string is appended","correct_option":"B"},
+{"id":"40","quiz_id":"4","question_text":"What is the last character of every C-style string?","option_a":"'\\0'","option_b":"'\\n'","option_c":"' '","option_d":"'.'","correct_option":"A"},
+{"id":"41","quiz_id":"5","question_text":"What is a pointer in C++?","option_a":"A variable that stores memory addresses","option_b":"A function that returns memory","option_c":"A data type used to store integers","option_d":"A keyword in C++","correct_option":"A"},
+{"id":"42","quiz_id":"5","question_text":"What is the correct syntax to declare a pointer to an integer?","option_a":"int* ptr;","option_b":"int ptr*;","option_c":"int ptr;","option_d":"pointer ptr;","correct_option":"A"},
+{"id":"43","quiz_id":"5","question_text":"Which operator is used to access the value stored at the memory address a pointer holds?","option_a":"&","option_b":"*","option_c":"->","option_d":"[]","correct_option":"B"},
+{"id":"44","quiz_id":"5","question_text":"How do you allocate memory dynamically for an integer using pointers?","option_a":"int *ptr = new int;","option_b":"int ptr = malloc(sizeof(int));","option_c":"int ptr = new int;","option_d":"allocate(ptr, int);","correct_option":"A"},
+{"id":"45","quiz_id":"5","question_text":"How do you properly free dynamically allocated memory in C++?","option_a":"free(ptr);","option_b":"delete ptr;","option_c":"remove(ptr);","option_d":"clear(ptr);","correct_option":"B"},
+{"id":"46","quiz_id":"5","question_text":"What happens if you access a pointer that has been deleted?","option_a":"It throws a runtime error","option_b":"It results in undefined behavior","option_c":"It resets to null","option_d":"The compiler automatically fixes it","correct_option":"B"},
+{"id":"47","quiz_id":"5","question_text":"What is the difference between new and new[] in C++?","option_a":"new allocates a single variable, new[] allocates an array","option_b":"They are identical","option_c":"new is for objects, new[] is for integers","option_d":"new works only with classes","correct_option":"A"},
+{"id":"48","quiz_id":"5","question_text":"What happens if you forget to use delete on dynamically allocated memory?","option_a":"The memory will be deallocated automatically","option_b":"The program will terminate","option_c":"A memory leak will occur","option_d":"Compilation error","correct_option":"C"},
+{"id":"49","quiz_id":"5","question_text":"How do you correctly deallocate an array allocated with new[]?","option_a":"delete ptr;","option_b":"delete[] ptr;","option_c":"free(ptr);","option_d":"remove(ptr);","correct_option":"B"},
+{"id":"50","quiz_id":"5","question_text":"What is a null pointer?","option_a":"A pointer that stores an invalid address","option_b":"A pointer that stores the value zero","option_c":"A pointer that points to no valid memory location","option_d":"A pointer that stores an integer","correct_option":"C"},
+{"id":"51","quiz_id":"6","question_text":"What is a class in C++?","option_a":"A blueprint for creating objects","option_b":"A function in C++","option_c":"A keyword for defining variables","option_d":"A special type of pointer","correct_option":"A"},
+{"id":"52","quiz_id":"6","question_text":"What is an object in C++?","option_a":"A variable of class type","option_b":"A function that belongs to a class","option_c":"A pointer to a class","option_d":"A keyword used for inheritance","correct_option":"A"},
+{"id":"53","quiz_id":"6","question_text":"How do you declare a class in C++?","option_a":"class ClassName { };","option_b":"object ClassName { };","option_c":"struct ClassName { };","option_d":"declare ClassName { };","correct_option":"A"},
+{"id":"54","quiz_id":"6","question_text":"What is the default access modifier for class members in C++?","option_a":"public","option_b":"private","option_c":"protected","option_d":"internal","correct_option":"B"},
+{"id":"55","quiz_id":"6","question_text":"Which keyword is used to create an object of a class in C++?","option_a":"object","option_b":"class","option_c":"new","option_d":"No keyword is required","correct_option":"D"},
+{"id":"56","quiz_id":"6","question_text":"What is the purpose of a constructor in C++?","option_a":"To initialize an object when it is created","option_b":"To destroy an object when it is no longer needed","option_c":"To create copies of an object","option_d":"To declare private members","correct_option":"A"},
+{"id":"57","quiz_id":"6","question_text":"How do you define a destructor in C++?","option_a":"By using ~ClassName()","option_b":"By using delete ClassName()","option_c":"By using destroy ClassName()","option_d":"By using ClassName::~()","correct_option":"A"},
+{"id":"58","quiz_id":"6","question_text":"What is function overloading in C++?","option_a":"Defining multiple functions with the same name but different parameters","option_b":"Calling multiple functions simultaneously","option_c":"Using multiple return types in a single function","option_d":"Using the same function in different classes","correct_option":"A"},
+{"id":"59","quiz_id":"6","question_text":"What is the purpose of the this pointer in C++?","option_a":"It refers to the current object of a class","option_b":"It creates a copy of an object","option_c":"It is used to call a function of the same class","option_d":"It refers to the base class in inheritance","correct_option":"A"},
+{"id":"60","quiz_id":"6","question_text":"What is inheritance in C++?","option_a":"A process of deriving a new class from an existing class","option_b":"A mechanism to create multiple objects","option_c":"A way to define private variables","option_d":"A technique for overloading functions","correct_option":"A"},
+{"id":"61","quiz_id":"7","question_text":"What is inheritance in C++?","option_a":"A mechanism to create multiple objects","option_b":"A process of deriving a new class from an existing class","option_c":"A way to define private variables","option_d":"A method for memory management","correct_option":"B"},
+{"id":"62","quiz_id":"7","question_text":"Which keyword is used to inherit a class in C++?","option_a":"extends","option_b":"inherits","option_c":"derived","option_d":": (colon)","correct_option":"D"},
+{"id":"63","quiz_id":"7","question_text":"What is the base class in inheritance?","option_a":"The class that is inherited from","option_b":"The class that inherits another class","option_c":"A class without any methods","option_d":"A class with only private members","correct_option":"A"},
+{"id":"64","quiz_id":"7","question_text":"What is a derived class?","option_a":"A class that is inherited from another class","option_b":"A class that cannot be instantiated","option_c":"A class without a constructor","option_d":"A class that is inherited by another class","correct_option":"A"},
+{"id":"65","quiz_id":"7","question_text":"What type of inheritance allows a class to inherit from multiple classes?","option_a":"Single inheritance","option_b":"Multiple inheritance","option_c":"Multilevel inheritance","option_d":"Hierarchical inheritance","correct_option":"B"},
+{"id":"66","quiz_id":"7","question_text":"What is the purpose of the virtual keyword in C++?","option_a":"To define a virtual base class","option_b":"To enable dynamic method dispatch in polymorphism","option_c":"To create multiple objects","option_d":"To prevent inheritance","correct_option":"B"},
+{"id":"67","quiz_id":"7","question_text":"What is function overriding in C++?","option_a":"Defining multiple functions with the same name in the same class","option_b":"Redefining a base class function in the derived class","option_c":"Using multiple functions in different classes","option_d":"A method of defining variables inside a function","correct_option":"B"},
+{"id":"68","quiz_id":"7","question_text":"What is an abstract class in C++?","option_a":"A class that cannot be inherited","option_b":"A class that cannot be instantiated and contains at least one pure virtual function","option_c":"A class with only static methods","option_d":"A class with only private members","correct_option":"B"},
+{"id":"69","quiz_id":"7","question_text":"What is the correct syntax for defining a pure virtual function?","option_a":"virtual void functionName() = 0;","option_b":"void functionName() virtual;","option_c":"abstract void functionName();","option_d":"virtual functionName();","correct_option":"A"},
+{"id":"70","quiz_id":"7","question_text":"What is the key benefit of polymorphism in C++?","option_a":"It allows multiple functions to run at the same time","option_b":"It enables dynamic method dispatch and code reusability","option_c":"It prevents objects from being created","option_d":"It restricts inheritance between classes","correct_option":"B"}
+]
+}
+,{"type":"table","name":"quiz_results","database":"tutoring_db","data":
+[
+
+]
+}
+,{"type":"table","name":"student_progress","database":"tutoring_db","data":
+[
+{"id":"1","student_id":"1","course_id":"1","completed":"1"},
+{"id":"2","student_id":"1","course_id":"2","completed":"0"},
+{"id":"3","student_id":"1","course_id":"3","completed":"0"},
+{"id":"5","student_id":"3","course_id":"2","completed":"0"},
+{"id":"6","student_id":"3","course_id":"1","completed":"0"}
+]
+}
+,{"type":"table","name":"users","database":"tutoring_db","data":
+[
+{"id":"1","email":"student@example.com","password":"hashedpassword"},
+{"id":"2","email":"tutor@example.com","password":"hashedpassword"},
+{"id":"3","email":"suyuach@gmail.com","password":"$2y$10$2S.GUuBoWpq9Qn2ztsCvquuVfsMJxOQ5wWWwvDFMT2Q7Xd7ZzSccu"}
+]
+}
+]
