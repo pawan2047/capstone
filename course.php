@@ -127,6 +127,38 @@ $totalModules = count($modules);
     </div>
   </section>
 
+  <!-- Badge Section -->
+  <?php
+    // Determine which badge to award based on progress percentage.
+    // Assuming $currentProgress is stored as a percentage (0 to 100).
+    $badge = '';
+    $badgeImage = '';
+    if ($currentProgress >= 80) {
+        $badge = 'Pro Badge';
+        $badgeImage = 'pro_badge.png'; // Replace with your actual image path.
+    } elseif ($currentProgress >= 60) {
+        $badge = 'Intermediate Badge';
+        $badgeImage = 'intermediate_badge.png';
+    } elseif ($currentProgress >= 20) {
+        $badge = 'Beginner Badge';
+        $badgeImage = 'beginner_badge.png';
+    } else {
+        $badge = 'No badge yet. Complete more modules to earn a badge!';
+    }
+  ?>
+  <section class="badge-section max-w-7xl mx-auto my-10 px-4 text-center">
+    <h2 class="text-3xl font-bold mb-4">Your Progress Badge</h2>
+    <?php if ($currentProgress >= 20): ?>
+      <div class="badge inline-block p-6 bg-white shadow-lg rounded-full">
+        <img src="<?php echo $badgeImage; ?>" alt="<?php echo $badge; ?>" class="h-24 mx-auto">
+        <p class="text-xl font-semibold mt-4"><?php echo $badge; ?></p>
+        <p class="text-gray-600">Progress: <?php echo round($currentProgress); ?>%</p>
+      </div>
+    <?php else: ?>
+      <p class="text-gray-600"><?php echo $badge; ?></p>
+    <?php endif; ?>
+  </section>
+
   <!-- Course Modules (Accordion Style) -->
   <div class="max-w-7xl mx-auto my-10 px-4">
     <?php if (count($modules) > 0): ?>
