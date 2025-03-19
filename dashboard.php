@@ -1,3 +1,4 @@
+<?php
 // dashboard.php
 include('db.php');
 session_start();
@@ -46,7 +47,6 @@ foreach ($progress_data as $course) {
 }
 $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2) : 0;
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,8 +92,9 @@ $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2
         <li>
           <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600" data-tab="peer-review">Peer Review</a>
         </li>
+        <!-- Replacing Certification with Badges -->
         <li>
-          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600" data-tab="apply-certification">Certification</a>
+          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600" data-tab="badges">Badges</a>
         </li>
       </ul>
     </nav>
@@ -220,14 +221,59 @@ $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2
       </div>
     </div>
 
-    <!-- Apply for Certification Tab -->
-    <div id="apply-certification" class="tab-content">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Apply for Certification</h2>
-      <p class="mb-4 text-gray-700">If you have met the required course completions, you can apply for certification.</p>
-      <div class="text-center">
-        <a href="apply_certification.php" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded transition duration-150 inline-block">
-          Apply Now
-        </a>
+    <!-- Badges Tab -->
+    <div id="badges" class="tab-content">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Earned Badges</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg">
+          <thead class="bg-blue-500 text-white">
+            <tr>
+              <th class="px-4 py-2 text-left">Course Name</th>
+              <th class="px-4 py-2 text-left">Progress (%)</th>
+              <th class="px-4 py-2 text-left">Badge Earned</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <?php if (!empty($progress_data)): ?>
+              <?php foreach ($progress_data as $course): ?>
+                <?php 
+                  $badge = '';
+                  $badgeImage = '';
+                  if ($course['completed'] >= 80) {
+                      $badge = 'Pro Badge';
+                      $badgeImage = 'pro_badge.png';
+                  } elseif ($course['completed'] >= 60) {
+                      $badge = 'Intermediate Badge';
+                      $badgeImage = 'intermediate_badge.png';
+                  } elseif ($course['completed'] >= 20) {
+                      $badge = 'Beginner Badge';
+                      $badgeImage = 'beginner_badge.png';
+                  } else {
+                      $badge = 'No badge earned';
+                  }
+                ?>
+                <tr>
+                  <td class="px-4 py-2"><?= htmlspecialchars($course['course_name']) ?></td>
+                  <td class="px-4 py-2"><?= htmlspecialchars($course['completed']) ?>%</td>
+                  <td class="px-4 py-2">
+                    <?php if ($badge != 'No badge earned'): ?>
+                      <div class="flex items-center space-x-2">
+                        <img src="<?= $badgeImage ?>" alt="<?= $badge ?>" class="h-10">
+                        <span><?= $badge ?></span>
+                      </div>
+                    <?php else: ?>
+                      <?= $badge ?>
+                    <?php endif; ?>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <tr>
+                <td colspan="3" class="px-4 py-2 text-center text-gray-500">No badge data available.</td>
+              </tr>
+            <?php endif; ?>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -256,7 +302,7 @@ $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2
     document.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash;
       if (hash) {
-        const targetTab = document.querySelector(.tab-link[data-tab="${hash.substring(1)}"]);
+        const targetTab = document.querySelector(`.tab-link[data-tab="${hash.substring(1)}"]`);
         if (targetTab) {
           targetTab.click();
           return;
