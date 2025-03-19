@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2025 at 10:54 PM
+-- Generation Time: Mar 19, 2025 at 06:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `tutoring_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `badges`
+--
+
+CREATE TABLE `badges` (
+  `id` int(11) NOT NULL,
+  `badge_name` varchar(50) NOT NULL,
+  `threshold` int(11) NOT NULL,
+  `image_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `badges`
+--
+
+INSERT INTO `badges` (`id`, `badge_name`, `threshold`, `image_path`) VALUES
+(1, 'Beginner Badge', 20, 'beginner_badge.png'),
+(2, 'Intermediate Badge', 60, 'intermediate_badge.png'),
+(3, 'Pro Badge', 80, 'pro_badge.png');
 
 -- --------------------------------------------------------
 
@@ -100,7 +122,17 @@ INSERT INTO `chapters` (`id`, `module_id`, `chapter_name`, `chapter_description`
 (17, 17, 'Chapter 1: Inheritance and Polymorphism', 'Understand inheritance and polymorphism in C++.', 1),
 (18, 18, 'Chapter 1: Templates and STL', 'Learn about templates and using STL containers.', 1),
 (19, 19, 'Chapter 1: Exception Handling and File I/O', 'Learn to handle exceptions and perform file I/O.', 1),
-(20, 20, 'Chapter 1: Advanced C++ Topics', 'Explore modern C++ features and prepare for a capstone project.', 1);
+(20, 20, 'Chapter 1: Advanced C++ Topics', 'Explore modern C++ features and prepare for a capstone project.', 1),
+(21, 21, 'Chapter 1: Introduction to Java', 'Overview of Java, history, and setup.', 1),
+(22, 22, 'Chapter 1: Java Basics', 'Learn syntax, variables, and data types in Java.', 1),
+(23, 23, 'Chapter 1: Control Structures in Java', 'Learn conditionals and loops in Java.', 1),
+(24, 24, 'Chapter 1: Object-Oriented Programming in Java', 'Introduction to classes, objects, inheritance, and polymorphism in Java.', 1),
+(25, 25, 'Chapter 1: Advanced Java Topics', 'Explore advanced topics like multithreading, collections, and lambda expressions in Java.', 1),
+(26, 26, 'Chapter 1: Getting Started with Web Development', 'Overview of web development, tools, and environments.', 1),
+(27, 27, 'Chapter 1: HTML & CSS Basics', 'Learn the basics of HTML structure and CSS styling.', 1),
+(28, 28, 'Chapter 1: JavaScript Fundamentals', 'Learn core JavaScript concepts and DOM manipulation.', 1),
+(29, 29, 'Chapter 1: Backend Development', 'Introduction to server-side programming and databases.', 1),
+(30, 30, 'Chapter 1: Full Stack Integration', 'Combine frontend and backend skills to build complete web applications.', 1);
 
 -- --------------------------------------------------------
 
@@ -163,7 +195,17 @@ INSERT INTO `lessons` (`id`, `chapter_id`, `lesson_title`, `lecture_content`, `v
 (17, 17, 'Lesson: Inheritance Basics', 'Understand inheritance and virtual functions in C++.', 'https://www.youtube.com/watch?v=rJlJ8qqVm3k', 1),
 (18, 18, 'Lesson: Introduction to Templates', 'Learn about templates and basic STL usage.', 'https://www.youtube.com/watch?v=mQqzP9EWu58', 1),
 (19, 19, 'Lesson: Exception Handling', 'Learn to handle exceptions in C++.', 'https://www.youtube.com/watch?v=5nCXSDv6e4I', 1),
-(20, 20, 'Lesson: Modern C++ Features', 'Explore lambda expressions, smart pointers, and multithreading.', 'https://www.youtube.com/watch?v=UOB7-B2MfwA', 1);
+(20, 20, 'Lesson: Modern C++ Features', 'Explore lambda expressions, smart pointers, and multithreading.', 'https://www.youtube.com/watch?v=UOB7-B2MfwA', 1),
+(21, 21, 'Lesson: Installing Java and Setting Up IDE', 'Step-by-step guide to installing Java and setting up an IDE.', 'https://www.youtube.com/watch?v=jPwrWjEwtrw', 1),
+(22, 22, 'Lesson: Basic Syntax in Java', 'Introduction to Java syntax, variables, and data types.', 'https://www.youtube.com/watch?v=so1iUWaLmKA&t=11s', 1),
+(23, 23, 'Lesson: Control Structures in Java', 'Learn if-else statements, loops, and switch cases in Java.', 'https://www.youtube.com/watch?v=MY03bt_0JQI', 1),
+(24, 24, 'Lesson: Object-Oriented Programming in Java', 'Understand classes, objects, inheritance, and polymorphism in Java.', 'https://www.youtube.com/watch?v=jhDUxynEQRI', 1),
+(25, 25, 'Lesson: Advanced Java Features', 'Explore multithreading, collections, and lambda expressions in Java.', 'https://www.youtube.com/watch?v=tj5sLSFjVj4&t=17s', 1),
+(26, 26, 'Lesson: Introduction to Web Development', 'Overview of web development and setting up your environment.', 'https://www.youtube.com/watch?v=PlxWf493en4', 1),
+(27, 27, 'Lesson: HTML Basics', 'Learn the structure of a webpage using HTML.', 'https://www.youtube.com/watch?v=i1FeOOhNnwU', 1),
+(28, 28, 'Lesson: CSS Styling', 'Learn to style your webpage using CSS.', 'https://www.youtube.com/watch?v=lkIFF4maKMU', 1),
+(29, 29, 'Lesson: JavaScript Essentials', 'Introduction to JavaScript and its core concepts.', 'https://www.youtube.com/watch?v=GxmfcnU3feo&t=135s', 1),
+(30, 30, 'Lesson: Building a Full-Stack Application', 'Combine frontend and backend skills to create a complete web application.', 'https://www.youtube.com/watch?v=dPMk6_HTBq8', 1);
 
 -- --------------------------------------------------------
 
@@ -203,7 +245,17 @@ INSERT INTO `modules` (`id`, `course_id`, `module_name`, `module_description`, `
 (17, 2, 'Module 7: Object-Oriented Programming', 'Introduction to classes and objects in C++.', 7),
 (18, 2, 'Module 8: Advanced OOP', 'Learn inheritance, polymorphism, and virtual functions.', 8),
 (19, 2, 'Module 9: Templates & STL', 'Learn about templates and the STL.', 9),
-(20, 2, 'Module 10: Advanced Topics', 'Modern C++ features and project-based applications.', 10);
+(20, 2, 'Module 10: Advanced Topics', 'Modern C++ features and project-based applications.', 10),
+(21, 3, 'Module 1: Introduction and Setup', 'Introduction to Java and environment setup.', 1),
+(22, 3, 'Module 2: Java Basics', 'Learn basic Java syntax, variables, and data types.', 2),
+(23, 3, 'Module 3: Control Structures', 'Learn conditionals and loops in Java.', 3),
+(24, 3, 'Module 4: Object-Oriented Programming', 'Learn classes, objects, inheritance, and polymorphism in Java.', 4),
+(25, 3, 'Module 5: Advanced Topics', 'Advanced topics including multithreading and collections.', 5),
+(26, 4, 'Module 1: Introduction to Web Development', 'Introduction to web development, tools and environment setup.', 1),
+(27, 4, 'Module 2: HTML & CSS Basics', 'Learn the fundamentals of HTML and CSS for building websites.', 2),
+(28, 4, 'Module 3: JavaScript Fundamentals', 'Learn basic JavaScript, DOM manipulation, and events.', 3),
+(29, 4, 'Module 4: Backend Development', 'Introduction to backend development using a server-side language.', 4),
+(30, 4, 'Module 5: Full Stack Integration', 'Integrate frontend and backend to build a full-stack application.', 5);
 
 -- --------------------------------------------------------
 
@@ -404,5 +456,300 @@ INSERT INTO `student_progress` (`id`, `student_id`, `course_id`, `completed`) VA
 (1, 1, 1, 1),
 (2, 1, 2, 0),
 (3, 1, 3, 0),
-(5, 3, 2, 0),
-(6, 3, 1, 0);
+(5, 3, 2, 30),
+(6, 3, 1, 0),
+(7, 3, 3, 0),
+(8, 3, 4, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`) VALUES
+(1, 'student@example.com', 'hashedpassword'),
+(2, 'tutor@example.com', 'hashedpassword'),
+(3, 'suyuach@gmail.com', '$2y$10$2S.GUuBoWpq9Qn2ztsCvquuVfsMJxOQ5wWWwvDFMT2Q7Xd7ZzSccu');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `badges`
+--
+ALTER TABLE `badges`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `capstone_projects`
+--
+ALTER TABLE `capstone_projects`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
+-- Indexes for table `certificates`
+--
+ALTER TABLE `certificates`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
+-- Indexes for table `chapters`
+--
+ALTER TABLE `chapters`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `module_id` (`module_id`);
+
+--
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `course_name` (`course_name`);
+
+--
+-- Indexes for table `lessons`
+--
+ALTER TABLE `lessons`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `chapter_id` (`chapter_id`);
+
+--
+-- Indexes for table `modules`
+--
+ALTER TABLE `modules`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
+-- Indexes for table `peer_posts`
+--
+ALTER TABLE `peer_posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `peer_reviews`
+--
+ALTER TABLE `peer_reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `reviewer_id` (`reviewer_id`);
+
+--
+-- Indexes for table `quizzes`
+--
+ALTER TABLE `quizzes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `chapter_id` (`chapter_id`);
+
+--
+-- Indexes for table `quiz_questions`
+--
+ALTER TABLE `quiz_questions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_id` (`quiz_id`);
+
+--
+-- Indexes for table `quiz_results`
+--
+ALTER TABLE `quiz_results`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_id` (`quiz_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
+-- Indexes for table `student_progress`
+--
+ALTER TABLE `student_progress`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `badges`
+--
+ALTER TABLE `badges`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `capstone_projects`
+--
+ALTER TABLE `capstone_projects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `certificates`
+--
+ALTER TABLE `certificates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `chapters`
+--
+ALTER TABLE `chapters`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `lessons`
+--
+ALTER TABLE `lessons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `modules`
+--
+ALTER TABLE `modules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `peer_posts`
+--
+ALTER TABLE `peer_posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `peer_reviews`
+--
+ALTER TABLE `peer_reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `quizzes`
+--
+ALTER TABLE `quizzes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `quiz_questions`
+--
+ALTER TABLE `quiz_questions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+
+--
+-- AUTO_INCREMENT for table `quiz_results`
+--
+ALTER TABLE `quiz_results`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student_progress`
+--
+ALTER TABLE `student_progress`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `capstone_projects`
+--
+ALTER TABLE `capstone_projects`
+  ADD CONSTRAINT `capstone_projects_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `certificates`
+--
+ALTER TABLE `certificates`
+  ADD CONSTRAINT `certificates_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `certificates_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `chapters`
+--
+ALTER TABLE `chapters`
+  ADD CONSTRAINT `chapters_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `lessons`
+--
+ALTER TABLE `lessons`
+  ADD CONSTRAINT `lessons_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `modules`
+--
+ALTER TABLE `modules`
+  ADD CONSTRAINT `modules_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `peer_posts`
+--
+ALTER TABLE `peer_posts`
+  ADD CONSTRAINT `peer_posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `peer_reviews`
+--
+ALTER TABLE `peer_reviews`
+  ADD CONSTRAINT `peer_reviews_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `peer_reviews_ibfk_2` FOREIGN KEY (`reviewer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `quizzes`
+--
+ALTER TABLE `quizzes`
+  ADD CONSTRAINT `quizzes_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `quiz_questions`
+--
+ALTER TABLE `quiz_questions`
+  ADD CONSTRAINT `quiz_questions_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `quiz_results`
+--
+ALTER TABLE `quiz_results`
+  ADD CONSTRAINT `quiz_results_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `quiz_results_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `student_progress`
+--
+ALTER TABLE `student_progress`
+  ADD CONSTRAINT `student_progress_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `student_progress_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
