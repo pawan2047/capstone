@@ -266,7 +266,7 @@ $totalModules = count($modules);
               <p class="text-gray-600">No chapters available for this module.</p>
             <?php endif; ?>
 
-            <!-- Module Completion Button -->
+           
             <?php
             // Each module contributes equally. Calculate the threshold percentage for this module.
             $moduleThreshold = ceil(($module['sort_order'] / $totalModules) * 100);
