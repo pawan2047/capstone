@@ -64,7 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Login
             </button>
         </form>
-
+          <p class="text-gray-600 text-sm text-center mt-4">
+            Don't have an account? 
+            <a href="register.php" class="text-blue-600 font-semibold">Register</a>
         </p>
     </div>
 </body>
