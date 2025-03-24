@@ -1,17 +1,4 @@
-<?php
-session_start();
 
-if($_COOKIE['username']){
-    $user = $_COOKIE['username'];
-    $_SESSION['username'] = $user;
-}
-$user = $_SESSION['username'];
-if(!$user) {
-    header("Location: http://localhost");
-    exit();
-}
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
