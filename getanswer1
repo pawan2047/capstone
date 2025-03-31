@@ -1,0 +1,42 @@
+<?php
+include('db.php');             // your MySQL connection file
+require './code_format.php';   // formatting helper
+
+// Step 1: Check and get ID and language from the URL
+if (isset($_GET['id']) && isset($_GET['language'])) {
+    $questionId = (int) $_GET['id'];
+    $language = strtolower(trim($_GET['language']));
+} else {
+    die("❌ No question ID or language received.");
+}
+
+// Step 2: Prepare MySQL query to get the answer
+$stmt = $conn->prepare("SELECT answer FROM answerss WHERE questionid = ? AND language = ?");
+$stmt->bind_param("is", $questionId, $language);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Step 3: Check if an answer exists
+if ($result && $row = $result->fetch_assoc()) {
+    $solution = $row['answer'];
+
+    // Optional formatting
+    if ($language == 'cpp' || $language == 'c++') {
+        $solution = code_format::cpp($solution);
+    } elseif ($language == 'python') {
+        $solution = code_format::python($solution);
+    } elseif ($language == 'php') {
+        $solution = code_format::php($solution);
+    }
+
+    // Return the answer
+    header("Content-Type: text/plain");
+    echo $solution;
+} else {
+    echo "⚠️ No solution found for question ID $questionId and language '$language'.";
+}
+
+// Close the statement and connection
+$stmt->close();
+$conn->close();
+?>
