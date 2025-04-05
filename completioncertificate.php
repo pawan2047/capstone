@@ -19,10 +19,10 @@
             <img src="logo.png" alt="Logo" class="h-24 mx-auto mb-8">
             <h1 class="text-5xl font-bold text-gray-800">Certificate of Completion</h1>
             <p class="text-2xl text-gray-600 mt-6">This certifies that</p>
-            <div class="mt-8">
+            <div class="mt-7">
                 <span class="block text-4xl font-semibold text-gray-700 underline">[Recipient Name]</span>
             </div>
-            <p class="text-2xl text-gray-600 mt-8">has successfully completed the course</p>
+            <p class="text-3xl text-gray-600 mt-8">has successfully completed the course</p>
             <div class="mt-8">
                 <span class="block text-3xl font-medium text-gray-700 italic">[Course Name]</span>
             </div>
@@ -34,7 +34,7 @@
                     <p class="text-gray-500 text-md">Instructor</p>
                 </div>
                 <div class="text-right">
-                    <p class="text-gray-700 font-semibold">THE EXPLORER</p>
+                    <p class="text-black-700 font-semibold">THE EXPLORER</p>
                     <p class="text-gray-500 text-md">Organization</p>
                 </div>
             </div>
