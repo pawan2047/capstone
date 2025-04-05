@@ -34,7 +34,7 @@ function retrieveQuestionById($apiKey, $baseURL, $id) {
     return null;
 }
 
-// Retrieve the question ID from the request
+//Question id Value
 $currentId = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
 // Fetch the question with the current ID
