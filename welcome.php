@@ -392,50 +392,7 @@
         chatbox.classList.add('-translate-x-full');
     });
 
-    // Function to send the message
-
-    // Function to send the message along with the code and language context
-   /* function sendMessage() {
-    const chatInput = document.getElementById('chat-input');
-    const chatContent = document.getElementById('chat-content');
-    const currentQuestion = document.getElementById('current-question').value; // Get current question
-    if (chatInput.value.trim()) {
-        // Display the user's message in the chatbox
-        const message = document.createElement('div');
-        message.className = 'bg-blue-500 text-white p-2 rounded-lg mb-2 self-end';
-        message.textContent = chatInput.value;
-        chatContent.appendChild(message);
-        // Send the message to PHP to get the ChatGPT response
-        fetch('get_response.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ prompt: currentQuestion.value })
-        })
-        .then(response => response.json())
-        .then(data => {
-            const botMessage = document.createElement('div');
-            botMessage.className = 'bg-gray-300 text-black p-2 rounded-lg mb-2 self-start';
-            botMessage.textContent = data.response;
-            chatContent.appendChild(botMessage);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        // Clear the input
-        chatInput.value = '';
-    }
-}
-    // Send message when clicking the "Send" button
-    document.getElementById('send-message').addEventListener('click', sendMessage);
-    // Send message when pressing Enter in the chat input
-    document.getElementById('chat-input').addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent newline in the input field
-            sendMessage();
-        }
-    });*/
+    
 
     function sendMessage() {
     const chatInput = document.getElementById('chat-input');
@@ -500,144 +457,6 @@ document.getElementById('send-message').addEventListener('click', sendMessage);
     
 </script>
 
-<script>
-    // Mapping frontend language selector values to RapidAPI's expected values
-  /*  const languageMap = {
-        javascript: 'nodejs',
-        python: 'python3',
-        php: 'php',
-        cpp: 'cpp'
-    };
-
-    // Placeholder answers for different languages
-    const answers = {
-    javascript: `console.log("Hello, World!");`,
-    python: `print("Hello, World!")`,
-    php: `<?php echo "Hello, World!"; ?>`,
-    cpp: `#include <iostream>\nusing namespace std;\nint main() {\n    cout << "Hello, World!";\n    return 0;\n}`
-};*/
-
-
-// Debugging "Run Code" Button
-/*document.getElementById('run-code').addEventListener('click', () => {
-    console.log("Run Code button clicked!"); // Debugging Message
-
-    const language = document.getElementById('language-select').value; 
-    const codeInput = document.getElementById('code-input').value;
-    const codeOutput = document.getElementById('code-output');
-
-    if (!codeInput) {
-        codeOutput.textContent = "⚠️ Please enter some code to run.";
-        return;
-    }
-
-    // Show loading message
-    codeOutput.textContent = "⏳ Running code...";
-
-    // Define the correct language mapping for API
-    const languageMap = {
-        javascript: "nodejs",
-        python: "python3",
-        php: "php",
-        cpp: "cpp"
-    };
-
-    const requestData = JSON.stringify({
-        language: languageMap[language],
-        version: "latest",
-        code: codeInput,
-        input: ""
-    });
-
-    console.log("🟢 Sending Request to API:", requestData);
-
-    // Call the API
-    fetch('https://online-code-compiler.p.rapidapi.com/v1/', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-rapidapi-key": "d3dfff1ac0msh311292519da91c4p17dab9jsna2ce47125585",
-            "x-rapidapi-host": "online-code-compiler.p.rapidapi.com"
-        },
-        body: requestData
-    })
-    .then(response => response.json()) // Convert response to JSON
-    .then(data => {
-        console.log("✅ API Response:", data);
-
-        if (data.output) {
-            codeOutput.innerHTML = `<pre style="white-space: pre-wrap; word-wrap: break-word; background-color: #1e1e1e; color: #ffffff; padding: 10px; border-radius: 5px; font-family: 'Courier New', monospace;">${data.output}</pre>`;
-        } else {
-            codeOutput.textContent = "⚠️ No output or execution error.";
-        }
-    })
-    .catch(error => {
-        console.error('❌ Error calling API:', error);
-        codeOutput.textContent = "⚠️ Error running code.";
-    });
-});
-uncomment it
-    
-*/
-
-// Debugging "Show Answer" Button
-/*document.getElementById('show-answer').addEventListener('click', () => {
-    console.log("Show Answer button clicked!"); // Debugging Message
-
-    const language = document.getElementById('language-select').value;
-    const codeOutput = document.getElementById('code-output');
-
-    if (answers[language]) {
-        codeOutput.textContent = `✅ Correct Answer:\n${answers[language]}`;
-    } else {
-        codeOutput.textContent = "⚠️ No answer available for this language.";
-    }
-});*/
-
-
-    // Run Code Button Event
-    /*document.getElementById('run-code').addEventListener('click', () => {
-        const language = document.getElementById('language-select').value; // Get selected language
-        const codeInput = document.getElementById('code-input').value;
-        const codeOutput = document.getElementById('code-output');
-    //const question = document.querySelector(".bg-blue-100 p").textContent.trim(); // Get the question text
-    const codeOutput = document.getElementById('code-output'); // Output element
-
-    // Show loading message
-    codeOutput.textContent = "Loading...";
-
-        const data = JSON.stringify({
-            language: languageMap[language],
-            version: 'latest',
-            code: codeInput,
-            input: null
-        });
-
-        const xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener('readystatechange', function () {
-            if (this.readyState === this.DONE) {
-                try {
-                    const response = JSON.parse(this.responseText);
-                    codeOutput.textContent = response.output || 'No output or execution error.';
-                } catch (error) {
-                    codeOutput.textContent = 'Error parsing response.';
-                }
-            }
-        });
-
-       
-    });
-
-
-    // Show Answer Button Event
-    
-    document.getElementById('show-answer').addEventListener('click', () => {
-        const language = document.getElementById('language-select').value;
-        const codeOutput = document.getElementById('code-output');
-        codeOutput.textContent = `Correct Answer:\n${answers[language]}`;
-    });*/
 
 </script>
 
@@ -729,30 +548,7 @@ document.getElementById('show-answer').addEventListener('click', () => {
         });
 });
 
-   /* let currentId = 1; // Start with question ID 1
-
-// Event Listener for the Next Question Button
-document.getElementById('next-question').addEventListener('click', () => {
-    currentId++; // Increment the question ID
-
-    // Fetch the next question from the server
-    fetch(`question.php?id=${currentId}`) // ✅ Corrected string interpolation
-        .then(response => response.text()) // Expect text response
-        .then(data => {
-            // ✅ Ensure there's an element with class 'bg-blue-100'
-            const questionContainer = document.querySelector('.bg-blue-100');
-            if (questionContainer) {
-                questionContainer.innerHTML = `<h2 class="text-lg font-semibold text-blue-700">Question:</h2><p>${data}</p>`;
-            } else {
-                console.error("Error: Question container not found.");
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching the next question:', error);
-        });
-});*/
-
-// Show Answer Button Event
+   
 
 </script>
 
