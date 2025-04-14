@@ -291,3 +291,284 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
         <div class="p-6 bg-gray-50 rounded-lg shadow">
           <div class="flex justify-between items-center mb-4">
             <h3 class="text-2xl font-semibold text-gray-800">My Courses</h3>
+
+              <a href="create_course.php" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-300">
+              Create New Course
+            </a>
+          </div>
+         
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead class="bg-blue-600 text-white">
+                <tr>
+                  <th class="px-4 py-3 text-left">Course Name</th>
+                  <th class="px-4 py-3 text-left">Description</th>
+                  <th class="px-4 py-3 text-left">Students</th>
+                  <th class="px-4 py-3 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <?php if (!empty($taught_courses)): ?>
+                  <?php foreach ($taught_courses as $course): ?>
+                    <tr class="hover:bg-gray-100 transition-colors duration-300">
+                      <td class="px-4 py-3 font-medium"><?= htmlspecialchars($course['course_name']) ?></td>
+                      <td class="px-4 py-3"><?= htmlspecialchars($course['description'] ?? 'No description') ?></td>
+                      <td class="px-4 py-3">
+                        <?php
+                          $student_count = 0;
+                          foreach ($enrollment_stats as $stat) {
+                              if ($stat['course_id'] == $course['id']) {
+                                  $student_count = $stat['total_students'];
+                                  break;
+                              }
+                          }
+                          echo $student_count;
+                        ?>
+                      </td>
+                      <td class="px-4 py-3 space-x-2">
+                        <a href="manage_course.php?course_id=<?= $course['id'] ?>" class="inline-block bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded transition duration-300">
+                          Manage
+                        </a>
+                        <a href="edit_course.php?course_id=<?= $course['id'] ?>" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition duration-300">
+                          Edit
+                        </a>
+                        <a href="delete_course.php?course_id=<?= $course['id'] ?>" onclick="return confirm('Are you sure you want to delete this course? This cannot be undone.');" class="inline-block bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition duration-300">
+                          Delete
+                        </a>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="4" class="px-4 py-3 text-center text-gray-500">You are not teaching any courses yet.</td>
+                  </tr>
+                <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Student Progress Tab -->
+      <div id="student-progress" class="tab-content">
+        <div class="p-6 bg-gray-50 rounded-lg shadow">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Student Progress Overview</h3>
+         
+          <?php if (!empty($enrollment_stats)): ?>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+              <?php foreach ($enrollment_stats as $stat): ?>
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                  <h4 class="font-semibold text-lg mb-2"><?= htmlspecialchars($stat['course_name']) ?></h4>
+                  <div class="space-y-2">
+                    <div>
+                      <span class="font-medium">Total Students:</span> <?= $stat['total_students'] ?>
+                    </div>
+                    <div>
+                      <span class="font-medium">Average Progress:</span> <?= round($stat['avg_progress'], 2) ?>%
+                      <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                        <div class="bg-blue-600 h-2 rounded-full" style="width: <?= round($stat['avg_progress'], 2) ?>%;"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <span class="font-medium">Completed:</span> <?= $stat['completed_count'] ?> students
+                    </div>
+                    <a href="course_progress.php?course_id=<?= $stat['course_id'] ?>" class="inline-block mt-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition duration-300">
+                      View Details
+                    </a>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php else: ?>
+            <p class="text-gray-500">No student progress data available.</p>
+          <?php endif; ?>
+         
+          <div class="mt-6 p-4 bg-white rounded-lg shadow border border-gray-200">
+            <h4 class="font-semibold text-lg mb-3">Top Performing Students</h4>
+            <div class="overflow-x-auto">
+              <table class="min-w-full">
+                <thead class="bg-green-600 text-white">
+                  <tr>
+                    <th class="px-4 py-2 text-left">Student</th>
+                    <th class="px-4 py-2 text-left">Course</th>
+                    <th class="px-4 py-2 text-left">Progress</th>
+                    <th class="px-4 py-2 text-left">Last Activity</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <?php if (!empty($top_students)): ?>
+                    <?php foreach ($top_students as $student): ?>
+                      <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2"><?= htmlspecialchars($student['username']) ?></td>
+                        <td class="px-4 py-2"><?= htmlspecialchars($student['course_name']) ?></td>
+                        <td class="px-4 py-2">
+                          <?= $student['completed'] ?>%
+                          <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                            <div class="bg-green-600 h-2 rounded-full" style="width: <?= $student['completed'] ?>%;"></div>
+                          </div>
+                        </td>
+                        <td class="px-4 py-2"><?= date('M j, Y', strtotime($student['last_accessed'])) ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  <?php else: ?>
+                    <tr>
+                      <td colspan="4" class="px-4 py-2 text-center text-gray-500">No student data available.</td>
+                    </tr>
+                  <?php endif; ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Grade Assignments Tab -->
+      <div id="grade-assignments" class="tab-content">
+        <div class="p-6 bg-gray-50 rounded-lg shadow">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Grade Assignments</h3>
+         
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Pending Assignments -->
+            <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+              <h4 class="font-semibold text-lg mb-3 flex justify-between items-center">
+                <span>Pending Grading</span>
+                <span class="text-sm bg-red-600 text-white px-2 py-1 rounded-full"><?= count($pending_assignments) ?></span>
+              </h4>
+             
+              <?php if (!empty($pending_assignments)): ?>
+                <div class="space-y-3">
+                  <?php foreach ($pending_assignments as $assignment): ?>
+                    <div class="border-b border-gray-200 pb-3 last:border-0 last:pb-0">
+                      <div class="font-medium"><?= htmlspecialchars($assignment['title']) ?></div>
+                      <div class="text-sm text-gray-600">Course: <?= htmlspecialchars($assignment['course_name']) ?></div>
+                      <div class="text-sm text-gray-600">Due: <?= date('M j, Y', strtotime($assignment['due_date'])) ?></div>
+                      <div class="text-sm text-gray-600">Submissions: <?= $assignment['submissions_count'] ?></div>
+                      <a href="grade_assignment.php?assignment_id=<?= $assignment['assignment_id'] ?>" class="inline-block mt-1 bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm transition duration-300">
+                        Grade Now
+                      </a>
+                    </div>
+                  <?php endforeach; ?>
+                </div>
+                <a href="view_all_assignments.php?status=pending" class="inline-block mt-3 text-blue-600 hover:text-blue-800 text-sm font-medium">
+                  View all pending assignments →
+                </a>
+              <?php else: ?>
+                <p class="text-gray-500">No assignments pending grading.</p>
+              <?php endif; ?>
+            </div>
+           
+            <!-- Recently Graded -->
+            <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+              <h4 class="font-semibold text-lg mb-3">Recently Graded</h4>
+             
+              <?php if (!empty($graded_assignments)): ?>
+                <div class="space-y-3">
+                  <?php foreach ($graded_assignments as $assignment): ?>
+                    <div class="border-b border-gray-200 pb-3 last:border-0 last:pb-0">
+                      <div class="font-medium"><?= htmlspecialchars($assignment['title']) ?></div>
+                      <div class="text-sm text-gray-600">Course: <?= htmlspecialchars($assignment['course_name']) ?></div>
+                      <div class="text-sm text-gray-600">Graded: <?= $assignment['graded_count'] ?> submissions</div>
+                      <div class="text-sm text-gray-600">Last graded: <?= date('M j', strtotime($assignment['last_graded'])) ?></div>
+                      <a href="view_grades.php?assignment_title=<?= urlencode($assignment['title']) ?>" class="inline-block mt-1 bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded text-sm transition duration-300">
+                        View Grades
+                      </a>
+                    </div>
+                  <?php endforeach; ?>
+                </div>
+                <a href="view_all_assignments.php?status=graded" class="inline-block mt-3 text-blue-600 hover:text-blue-800 text-sm font-medium">
+                  View all graded assignments →
+                </a>
+              <?php else: ?>
+                <p class="text-gray-500">No recently graded assignments.</p>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Peer Forum Tab -->
+      <div id="peer-forum" class="tab-content">
+        <div class="p-6 bg-gray-50 rounded-lg shadow">
+          <h3 class="text-4xl font-bold text-purple-700 text-center mb-8">💬 Peer Review Forum</h3>
+
+
+          <!-- New Post Form -->
+          <div class="mb-10">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Post Something</h2>
+            <form method="post" action="teacher_dashboard.php#peer-forum" enctype="multipart/form-data">
+              <div class="mb-4">
+                <label for="course_id" class="block text-sm font-medium text-gray-700 mb-1">Select Course:</label>
+                <select name="course_id" id="course_id" class="w-full border border-purple-300 rounded px-3 py-2" onchange="location = 'teacher_dashboard.php?course_id=' + this.value + '#peer-forum';">
+                  <?php foreach ($taught_courses as $course): ?>
+                    <option value="<?= $course['id'] ?>" <?= $course['id'] == $selected_course_id ? 'selected' : '' ?>><?= htmlspecialchars($course['course_name']) ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <textarea name="content" rows="4" class="w-full p-4 border border-purple-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="Share your question, feedback, or a code snippet..." required></textarea>
+              <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Upload File (C++, Java, Python, PHP, TXT):</label>
+                <input type="file" name="file" class="w-full border border-purple-300 rounded px-3 py-2" />
+              </div>
+              <button type="submit" class="mt-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-5 py-2 rounded">Post</button>
+            </form>
+          </div>
+
+
+          <!-- All Posts for Selected Course -->
+          <div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Recent Posts (<?= htmlspecialchars($selected_course_name) ?>)</h2>
+            <?php if (!empty($posts)): ?>
+              <div class="space-y-4">
+              <?php foreach ($posts as $post): ?>
+                <div class="p-5 bg-gray-50 border border-purple-200 rounded-lg shadow">
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold text-purple-700">👤 <?= htmlspecialchars($post['email']) ?></span>
+                    <span class="text-sm text-gray-500">🕒 <?= htmlspecialchars($post['created_at']) ?></span>
+                  </div>
+                  <p class="text-gray-800 whitespace-pre-line mb-2"><?= nl2br(htmlspecialchars($post['content'])) ?></p>
+                  <?php if (!empty($post['file_path'])): ?>
+                    <a href="uploads/<?= htmlspecialchars($post['file_path']) ?>" target="_blank" class="text-blue-600 hover:underline">📎 Download Attached File</a>
+                  <?php endif; ?>
+                </div>
+              <?php endforeach; ?>
+              </div>
+            <?php else: ?>
+              <p class="text-gray-600">No posts yet for this course. Be the first to share your thoughts!</p>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // Tab switching functionality
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+
+    tabLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+       
+        // Remove active classes
+        tabLinks.forEach(l => l.classList.remove('border-b-2', 'border-blue-600'));
+        tabContents.forEach(c => c.classList.remove('active', 'fade-in'));
+       
+        // Add active classes to clicked tab
+        const tabId = this.getAttribute('data-tab');
+        const activeTab = document.getElementById(tabId);
+        this.classList.add('border-b-2', 'border-blue-600');
+        activeTab.classList.add('active', 'fade-in');
+      });
+    });
+
+  </script>
+</body>
+</html>
+
+
