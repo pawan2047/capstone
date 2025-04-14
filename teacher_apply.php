@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Submit Application
       </button>
     </form>
-   
+    <p class="text-gray-600 text-sm text-center mt-4">Already applied? <a href="login.php" class="text-blue-600 hover:underline">Login here</a></p>
   </div>
 </body>
 </html>
