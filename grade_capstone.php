@@ -56,7 +56,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <title>Grade Final Project - Code Academy</title>
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
-t" name="approval" value="approve" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300">
+</head>
+<body class="bg-gray-100">
+  <div class="max-w-2xl mx-auto p-8 mt-10 bg-white rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">Grade Final Project</h2>
+    <div class="mb-4">
+      <p><strong>Student ID:</strong> <?= htmlspecialchars($submission['student_id']) ?></p>
+      <p><strong>Project Title:</strong> <?= htmlspecialchars($submission['project_title']) ?></p>
+      <p><strong>Description:</strong> <?= nl2br(htmlspecialchars($submission['project_description'])) ?></p>
+      <p><strong>Submitted At:</strong> <?= htmlspecialchars($submission['submitted_at']) ?></p>
+    </div>
+    <form action="grade_capstone.php?submission_id=<?= $submission_id ?>" method="POST">
+      <div class="mb-4">
+        <label class="block mb-2 font-semibold">Your Comment (Optional)</label>
+        <textarea name="comment" rows="3" class="w-full p-2 border rounded" placeholder="Enter comment (e.g., 'Do again' if not approved)"></textarea>
+      </div>
+      <div class="flex space-x-4">
+        <button type="submit" name="approval" value="approve" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300">
           Approve
         </button>
         <button type="submit" name="approval" value="resubmit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition duration-300">
