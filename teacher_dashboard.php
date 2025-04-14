@@ -567,6 +567,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
       });
     });
 
+       // Activate first tab by default
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetTab = document.querySelector(`.tab-link[data-tab="${hash.substring(1)}"]`);
+        if (targetTab) {
+          targetTab.click();
+          return;
+        }
+      }
+      document.querySelector('.tab-link').click();
+    });
+      
   </script>
 </body>
 </html>
