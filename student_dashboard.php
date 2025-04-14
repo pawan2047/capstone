@@ -483,7 +483,38 @@ foreach ($progress_data as $course) {
         </div>
       </div>
     </div>
-  </
+  </div>
+
+  <script>
+    // Tab switching functionality
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active classes
+        tabLinks.forEach(l => l.classList.remove('border-b-2', 'border-blue-600'));
+        tabContents.forEach(c => c.classList.remove('active', 'fade-in'));
+        
+        // Add active classes to clicked tab
+        const tabId = this.getAttribute('data-tab');
+        const activeTab = document.getElementById(tabId);
+        this.classList.add('border-b-2', 'border-blue-600');
+        activeTab.classList.add('active', 'fade-in');
+      });
+    });
+
+    // Activate first tab by default
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetTab = document.querySelector(`.tab-link[data-tab="${hash.substring(1)}"]`);
+        if (targetTab) {
+          targetTab.click();
+          return;
+        }
       }
       document.querySelector('.tab-link').click();
     });
