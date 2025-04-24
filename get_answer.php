@@ -11,6 +11,7 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['language']) && !em
     die("❌ No question ID or language received.");
 }
 
+// echo "<script>alert('✅ Question ID: $questionId, Language: $language received');</script>";
 
 
 // Function to find the correct Firestore document ID
@@ -75,4 +76,3 @@ header("Content-Type: text/plain"); // Ensure plain text response
 echo $solution; // Return only the solution text
 
 ?>
-
