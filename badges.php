@@ -45,8 +45,7 @@ $stmt->close();
             <th class="px-4 py-2 text-left">Badge Earned</th>
           </tr>
         </thead>
-
-          <tbody class="bg-white divide-y divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
           <?php if (!empty($progress_data)): ?>
             <?php foreach ($progress_data as $course): ?>
               <?php 
