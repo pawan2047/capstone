@@ -1,5 +1,4 @@
 <?php
-// dashboard.php
 include('db.php');
 session_start();
 
@@ -56,7 +55,7 @@ $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2
   <!-- TailwindCSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Custom modern fade-in animation */
+    /* Custom fade-in animation for tab content */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -72,16 +71,25 @@ $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2
     }
   </style>
 </head>
-<body class="bg-gradient-to-r from-gray-100 to-gray-200 min-h-screen">
-  <div class="max-w-6xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-xl">
-    <header class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-gray-800">Student Dashboard</h1>
-      <p class="text-gray-600 mt-2">Manage your courses, track progress, and more.</p>
-    </header>
+<body class="bg-gradient-to-r from-gray-200 to-gray-100">
+  <!-- Sticky Top Navigation Bar -->
+  <header class="sticky top-0 bg-gray-800 text-white flex justify-between items-center px-6 py-4 shadow-lg z-10">
+    <h1 class="text-xl font-bold">Code Academy</h1>
+    <nav>
+      <a href="logout.php" class="text-sm font-semibold hover:text-gray-300 transition-colors duration-300">Logout</a>
+    </nav>
+  </header>
+  
+  <div class="max-w-6xl mx-auto mt-16 p-8 bg-white rounded-lg shadow-xl">
+    <!-- Page Header -->
+    <div class="text-center mb-10">
+      <h2 class="text-4xl font-bold text-gray-800">Student Dashboard</h2>
+      <p class="text-gray-600 mt-2">View and manage your courses.</p>
+    </div>
     
     <!-- Tab Navigation -->
-    <nav class="mb-6 border-b border-gray-300">
-      <ul class="flex justify-center space-x-4">
+    <nav class="mb-10 border-b border-gray-300">
+      <ul class="flex justify-center space-x-6">
         <li>
           <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="my-courses">My Courses</a>
         </li>
@@ -97,188 +105,239 @@ $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2
         <li>
           <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="badges">Badges</a>
         </li>
+        <!-- New Tab: Talk to Teachers -->
+        <li>
+          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="talk-to-teachers">Talk to Teachers</a>
+        </li>
       </ul>
     </nav>
-
-    <!-- Tab Contents -->
-    <!-- Initially, only the My Courses tab is displayed; the rest are hidden -->
     
-    <!-- My Courses Tab -->
-    <div id="my-courses" class="tab-content fade-in">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Enrolled Courses</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg">
-          <thead class="bg-blue-500 text-white">
-            <tr>
-              <th class="px-4 py-2 text-left">Course Name</th>
-              <th class="px-4 py-2 text-left">Progress (%)</th>
-              <th class="px-4 py-2 text-left">Action</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <?php if (!empty($progress_data)): ?>
-              <?php foreach ($progress_data as $course): ?>
-                <tr class="hover:bg-gray-100 transition-colors duration-300">
-                  <td class="px-4 py-2"><?= htmlspecialchars($course['course_name']) ?></td>
-                  <td class="px-4 py-2"><?= htmlspecialchars($course['completed']) ?>%</td>
-                  <td class="px-4 py-2 space-x-2">
-                    <!-- Continue Course button -->
-                    <a href="course.php?course_id=<?= $course['course_id'] ?>" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded transition duration-300">
-                      Continue Course
-                    </a>
-                    <!-- Drop Course button -->
-                    <a href="drop_course.php?course_id=<?= $course['course_id'] ?>" onclick="return confirm('Are you sure you want to drop this course?');" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition duration-300">
-                      Drop Course
-                    </a>
-                  </td>
+    <!-- Tab Contents -->
+    <div class="space-y-10">
+      <!-- My Courses Tab -->
+      <div id="my-courses" class="tab-content fade-in">
+        <div class="p-6 bg-gray-50 rounded-lg shadow">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Enrolled Courses</h3>
+          <!-- Table for enrolled courses -->
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead class="bg-blue-600 text-white">
+                <tr>
+                  <th class="px-4 py-3 text-left">Course Name</th>
+                  <th class="px-4 py-3 text-left">Progress</th>
+                  <th class="px-4 py-3 text-left">Action</th>
                 </tr>
-              <?php endforeach; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="3" class="px-4 py-2 text-center text-gray-500">No enrolled courses found.</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <?php if (!empty($progress_data)): ?>
+                  <?php foreach ($progress_data as $course): ?>
+                    <tr class="hover:bg-gray-100 transition-colors duration-300">
+                      <td class="px-4 py-3">
+                        <?= htmlspecialchars($course['course_name']) ?>
+                        <?php if ($course['completed'] == 100): ?>
+                          <span class="text-xl animate-bounce" title="Course Completed!">🎉</span>
+                        <?php endif; ?>
+                      </td>
+                      <td class="px-4 py-3">
+                        <?= htmlspecialchars($course['completed']) ?>%
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                          <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: <?= htmlspecialchars($course['completed']) ?>%;"></div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3 space-x-2">
+                        <a href="course.php?course_id=<?= $course['course_id'] ?>" class="inline-block bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded transition duration-300">
+                          Continue Course
+                        </a>
+                        <a href="drop_course.php?course_id=<?= $course['course_id'] ?>" onclick="return confirm('Are you sure you want to drop this course?');" class="inline-block bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition duration-300">
+                          Drop Course
+                        </a>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="3" class="px-4 py-3 text-center text-gray-500">No enrolled courses found.</td>
+                  </tr>
+                <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- New Courses Tab -->
-    <div id="new-courses" class="tab-content" style="display: none;">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">New Courses</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg">
-          <thead class="bg-blue-500 text-white">
-            <tr>
-              <th class="px-4 py-2 text-left">Course Name</th>
-              <th class="px-4 py-2 text-left">Description</th>
-              <th class="px-4 py-2 text-left">Action</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <?php if (!empty($available_courses)): ?>
-              <?php foreach ($available_courses as $course): ?>
-                <tr class="hover:bg-gray-100 transition-colors duration-300">
-                  <td class="px-4 py-2"><?= htmlspecialchars($course['course_name']) ?></td>
-                  <td class="px-4 py-2"><?= htmlspecialchars($course['description'] ?? 'No description available') ?></td>
-                  <td class="px-4 py-2">
-                    <a href="enroll_course.php?course_id=<?= $course['id'] ?>" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition duration-300">
-                      Enroll
-                    </a>
-                  </td>
+      <!-- New Courses Tab -->
+      <div id="new-courses" class="tab-content" style="display: none;">
+        <div class="p-6 bg-gray-50 rounded-lg shadow">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">New Courses</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead class="bg-blue-600 text-white">
+                <tr>
+                  <th class="px-4 py-3 text-left">Course Name</th>
+                  <th class="px-4 py-3 text-left">Description</th>
+                  <th class="px-4 py-3 text-left">Action</th>
                 </tr>
-              <?php endforeach; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="3" class="px-4 py-2 text-center text-gray-500">No new courses available.</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <?php if (!empty($available_courses)): ?>
+                  <?php foreach ($available_courses as $course): ?>
+                    <tr class="hover:bg-gray-100 transition-colors duration-300">
+                      <td class="px-4 py-3"><?= htmlspecialchars($course['course_name']) ?></td>
+                      <td class="px-4 py-3"><?= htmlspecialchars($course['description'] ?? 'No description available') ?></td>
+                      <td class="px-4 py-3">
+                        <a href="enroll_course.php?course_id=<?= $course['id'] ?>" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition duration-300">
+                          Enroll
+                        </a>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="3" class="px-4 py-3 text-center text-gray-500">No new courses available.</td>
+                  </tr>
+                <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Progress Tracker Tab -->
-    <div id="progress-tracker" class="tab-content" style="display: none;">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Progress Tracker</h2>
-      <?php if ($totalCourses > 0): ?>
-        <p class="mb-4 text-gray-700">Overall Progress: <span class="font-bold text-green-600"><?= $averageProgress ?>%</span> across <span class="font-bold text-green-600"><?= $totalCourses ?></span> course(s).</p>
-      <?php else: ?>
-        <p class="mb-4 text-gray-700">You are not enrolled in any courses yet.</p>
-      <?php endif; ?>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg">
-          <thead class="bg-blue-500 text-white">
-            <tr>
-              <th class="px-4 py-2 text-left">Course Name</th>
-              <th class="px-4 py-2 text-left">Progress (%)</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <?php if (!empty($progress_data)): ?>
-              <?php foreach ($progress_data as $course): ?>
-                <tr class="hover:bg-gray-100 transition-colors duration-300">
-                  <td class="px-4 py-2"><?= htmlspecialchars($course['course_name']) ?></td>
-                  <td class="px-4 py-2"><?= htmlspecialchars($course['completed']) ?>%</td>
+      <!-- Progress Tracker Tab -->
+      <div id="progress-tracker" class="tab-content" style="display: none;">
+        <div class="p-6 bg-gray-50 rounded-lg shadow">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Progress Tracker</h3>
+          <?php if ($totalCourses > 0): ?>
+            <p class="mb-4 text-gray-700">
+              Overall Progress: <span class="font-bold text-green-600"><?= $averageProgress ?>%</span> across
+              <span class="font-bold text-green-600"><?= $totalCourses ?></span> course(s).
+            </p>
+            <div class="w-full bg-gray-300 rounded-full h-4 mb-4">
+              <div class="bg-green-600 h-4 rounded-full transition-all duration-500" style="width: <?= $averageProgress ?>%;"></div>
+            </div>
+          <?php else: ?>
+            <p class="mb-4 text-gray-700">You are not enrolled in any courses yet.</p>
+          <?php endif; ?>
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead class="bg-blue-600 text-white">
+                <tr>
+                  <th class="px-4 py-3 text-left">Course Name</th>
+                  <th class="px-4 py-3 text-left">Progress</th>
                 </tr>
-              <?php endforeach; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="2" class="px-4 py-2 text-center text-gray-500">No progress data available.</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <?php if (!empty($progress_data)): ?>
+                  <?php foreach ($progress_data as $course): ?>
+                    <tr class="hover:bg-gray-100 transition-colors duration-300">
+                      <td class="px-4 py-3">
+                        <?= htmlspecialchars($course['course_name']) ?>
+                        <?php if ($course['completed'] == 100): ?>
+                          <span class="text-xl animate-bounce" title="Course Completed!">🎉</span>
+                        <?php endif; ?>
+                      </td>
+                      <td class="px-4 py-3">
+                        <?= htmlspecialchars($course['completed']) ?>%
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                          <div class="bg-green-600 h-2 rounded-full transition-all duration-500" style="width: <?= htmlspecialchars($course['completed']) ?>%;"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="2" class="px-4 py-3 text-center text-gray-500">No progress data available.</td>
+                  </tr>
+                <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Peer Review Section Tab -->
-    <div id="peer-review" class="tab-content" style="display: none;">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Peer Review Section</h2>
-      <p class="mb-4 text-gray-700">Review your peers’ work and receive feedback on your own projects.</p>
-      <div class="text-center">
-        <a href="peer_review.php" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition duration-300 inline-block">
-          Go to Peer Review
-        </a>
+      <!-- Peer Review Tab -->
+      <div id="peer-review" class="tab-content" style="display: none;">
+        <div class="p-6 bg-gray-50 rounded-lg shadow text-center">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Peer Review</h3>
+          <p class="mb-4 text-gray-700">Discuss your projects and get feedback from your peers.</p>
+          <a href="peer_review.php" class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded transition duration-300">
+            Go to Peer Review
+          </a>
+        </div>
       </div>
-    </div>
 
-    <!-- Badges Tab -->
-    <div id="badges" class="tab-content" style="display: none;">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Earned Badges</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 shadow-md rounded-lg">
-          <thead class="bg-blue-500 text-white">
-            <tr>
-              <th class="px-4 py-2 text-left">Course Name</th>
-              <th class="px-4 py-2 text-left">Progress (%)</th>
-              <th class="px-4 py-2 text-left">Badge Earned</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <?php if (!empty($progress_data)): ?>
-              <?php foreach ($progress_data as $course): ?>
-                <?php 
-                  $badge = '';
-                  $badgeImage = '';
-                  if ($course['completed'] >= 80) {
-                      $badge = 'Pro Badge';
-                      $badgeImage = 'pro_badge.png';
-                  } elseif ($course['completed'] >= 60) {
-                      $badge = 'Intermediate Badge';
-                      $badgeImage = 'intermediate_badge.png';
-                  } elseif ($course['completed'] >= 20) {
-                      $badge = 'Beginner Badge';
-                      $badgeImage = 'beginner_badge.png';
-                  } else {
-                      $badge = 'No badge earned';
-                  }
-                ?>
-                <tr class="hover:bg-gray-100 transition-colors duration-300">
-                  <td class="px-4 py-2"><?= htmlspecialchars($course['course_name']) ?></td>
-                  <td class="px-4 py-2"><?= htmlspecialchars($course['completed']) ?>%</td>
-                  <td class="px-4 py-2">
-                    <?php if ($badge != 'No badge earned'): ?>
-                      <div class="flex items-center space-x-2">
-                        <img src="<?= $badgeImage ?>" alt="<?= $badge ?>" class="h-10">
-                        <span><?= $badge ?></span>
-                      </div>
-                    <?php else: ?>
-                      <?= $badge ?>
-                    <?php endif; ?>
-                  </td>
+      <!-- Badges Tab -->
+      <div id="badges" class="tab-content" style="display: none;">
+        <div class="p-6 bg-gray-50 rounded-lg shadow">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Earned Badges</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead class="bg-blue-600 text-white">
+                <tr>
+                  <th class="px-4 py-3 text-left">Course Name</th>
+                  <th class="px-4 py-3 text-left">Progress</th>
+                  <th class="px-4 py-3 text-left">Badge Earned</th>
                 </tr>
-              <?php endforeach; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="3" class="px-4 py-2 text-center text-gray-500">No badge data available.</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <?php if (!empty($progress_data)): ?>
+                  <?php foreach ($progress_data as $course): ?>
+                    <?php 
+                      $badge = '';
+                      $badgeImage = '';
+                      if ($course['completed'] >= 80) {
+                          $badge = 'Pro Badge';
+                          $badgeImage = 'pro_badge.png';
+                      } elseif ($course['completed'] >= 60) {
+                          $badge = 'Intermediate Badge';
+                          $badgeImage = 'intermediate_badge.png';
+                      } elseif ($course['completed'] >= 20) {
+                          $badge = 'Beginner Badge';
+                          $badgeImage = 'beginner_badge.png';
+                      } else {
+                          $badge = 'No badge earned';
+                      }
+                    ?>
+                    <tr class="hover:bg-gray-100 transition-colors duration-300">
+                      <td class="px-4 py-3"><?= htmlspecialchars($course['course_name']) ?></td>
+                      <td class="px-4 py-3"><?= htmlspecialchars($course['completed']) ?>%
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                          <div class="bg-green-600 h-2 rounded-full transition-all duration-500" style="width: <?= htmlspecialchars($course['completed']) ?>%;"></div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3">
+                        <?php if ($badge != 'No badge earned'): ?>
+                          <div class="flex items-center space-x-2">
+                            <img src="<?= $badgeImage ?>" alt="<?= $badge ?>" class="h-10">
+                            <span><?= $badge ?></span>
+                          </div>
+                        <?php else: ?>
+                          <?= $badge ?>
+                        <?php endif; ?>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="3" class="px-4 py-3 text-center text-gray-500">No badge data available.</td>
+                  </tr>
+                <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Tab: Talk to Teachers -->
+      <div id="talk-to-teachers" class="tab-content" style="display: none;">
+        <div class="p-6 bg-gray-50 rounded-lg shadow text-center">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Talk to Teachers</h3>
+          <p class="mb-4 text-gray-700">Have a question? Click below to chat with our experts.</p>
+          <a href="talk_to_teachers.php" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-300">
+            Chat Now
+          </a>
+        </div>
       </div>
     </div>
-
   </div>
 
   <!-- Modern Tab Switching Script with Fade-In Animation -->
@@ -289,24 +348,19 @@ $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2
     tabLinks.forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
-        // Remove active styling from all links
-        tabLinks.forEach(link => link.classList.remove('border-b-2', 'border-blue-500'));
-        // Hide all tab contents and remove the fade-in class
+        tabLinks.forEach(link => link.classList.remove('border-b-2', 'border-blue-600'));
         tabContents.forEach(content => {
           content.style.display = 'none';
           content.classList.remove('fade-in');
         });
-        // Activate the selected tab's content
         const tabId = this.getAttribute('data-tab');
         const activeTab = document.getElementById(tabId);
         activeTab.style.display = 'block';
         activeTab.classList.add('fade-in');
-        // Add active styling to the clicked link
-        this.classList.add('border-b-2', 'border-blue-500');
+        this.classList.add('border-b-2', 'border-blue-600');
       });
     });
 
-    // On page load, check if a hash is present in the URL.
     document.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash;
       if (hash) {
@@ -316,7 +370,6 @@ $averageProgress = ($totalCourses > 0) ? round($totalProgress / $totalCourses, 2
           return;
         }
       }
-      // Default: activate the first tab
       document.querySelector('.tab-link').click();
     });
   </script>
