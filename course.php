@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 if (!isset($_GET['course_id'])) {
-    header("Location: dashboard.php");
+    header("Location: student_dashboard.php");
     exit();
 }
 
@@ -113,7 +113,7 @@ if ($has_capstone) {
   <header class="sticky top-0 bg-gray-800 text-white flex justify-between items-center px-6 py-4 shadow-lg z-10">
     <h1 class="text-xl font-bold">Code Academy</h1>
     <nav>
-      <a href="dashboard.php" class="text-sm font-semibold hover:text-gray-300 transition-colors duration-300 mr-4">Dashboard</a>
+      <a href="student_dashboard.php" class="text-sm font-semibold hover:text-gray-300 transition-colors duration-300 mr-4">Dashboard</a>
       <a href="logout.php" class="text-sm font-semibold hover:text-gray-300 transition-colors duration-300">Logout</a>
     </nav>
   </header>
@@ -164,9 +164,9 @@ if ($has_capstone) {
         <li>
           <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="resources">Resources</a>
         </li>
-        <li>
-          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="project-submission">Project Submission</a>
-        </li>
+      
+
+        
       </ul>
     </nav>
     
@@ -383,9 +383,27 @@ if ($has_capstone) {
             <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <h4 class="font-semibold text-blue-800 mb-2">📚 Recommended Books</h4>
               <ul class="list-disc list-inside space-y-1">
-                <li>JavaScript: The Good Parts by Douglas Crockford</li>
-                <li>Eloquent JavaScript by Marijn Haverbeke</li>
-                <li>You Don't Know JS by Kyle Simpson</li>
+              <ul>
+  <li>
+  <ul>
+  <li>
+    <a href="https://www.amazon.com/C-Programming-Language-4th/dp/0321563840" target="_blank" style="color: blue;">
+      The C++ Programming Language (4th Edition) by Bjarne Stroustrup
+    </a>
+  </li>
+  <li>
+    <a href="https://www.amazon.com/Effective-Modern-Specific-Ways-Improve/dp/1491903996" target="_blank" style="color: blue;">
+      Effective Modern C++ by Scott Meyers
+    </a>
+  </li>
+  <li>
+    <a href="https://www.amazon.com/Primer-5th-Stanley-B-Lippman/dp/0321714113" target="_blank" style="color: blue;">
+      C++ Primer (5th Edition) by Stanley B. Lippman, Josée Lajoie, and Barbara E. Moo
+    </a>
+  </li>
+</ul>
+
+
               </ul>
             </div>
             
@@ -399,31 +417,7 @@ if ($has_capstone) {
             </div>
           </div>
           
-          <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <h4 class="font-semibold text-gray-800 mb-2">📁 Course Files</h4>
-            <div class="flex flex-wrap gap-4">
-              <a href="#" class="flex items-center bg-white p-3 rounded-lg shadow border border-gray-200 hover:border-blue-500 transition-colors duration-300">
-                <svg class="w-6 h-6 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Course Syllabus
-              </a>
-              <a href="#" class="flex items-center bg-white p-3 rounded-lg shadow border border-gray-200 hover:border-blue-500 transition-colors duration-300">
-                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Cheat Sheet
-              </a>
-              <a href="#" class="flex items-center bg-white p-3 rounded-lg shadow border border-gray-200 hover:border-blue-500 transition-colors duration-300">
-                <svg class="w-6 h-6 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Final Project Guidelines
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+          
       
       <!-- Project Submission Tab -->
       <div id="project-submission" class="tab-content">
