@@ -182,11 +182,11 @@ foreach ($progress_data as $course) {
           <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="badges">Badges</a>
         </li>
         <li>
-          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="peer-review">Peer Review</a>
+          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="peer-review">Discussion Forum</a>
         </li>
-        <li>
-          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="talk-to-teachers">Ask Teacher</a>
-        </li>
+        
+
+        
       </ul>
     </nav>
     
