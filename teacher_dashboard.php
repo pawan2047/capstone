@@ -1,14 +1,11 @@
-
 <?php
 include('db.php');
 session_start();
-
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-
 
 // Get teacher info including their teacher_code
 $user_id = $_SESSION['user_id'];
@@ -21,19 +18,16 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $stmt->close();
 
-
 if ($user['role'] !== 'teacher') {
     header("Location: student_dashboard.php");
     exit();
 }
 
-
 $teacher_code = $user['teacher_code'];
 
-
 // Get courses taught by this teacher by joining with users table
-$query = "SELECT c.* FROM courses c
-          JOIN users u ON c.teacher_id = u.id
+$query = "SELECT c.* FROM courses c 
+          JOIN users u ON c.teacher_id = u.id 
           WHERE u.teacher_code = ?";
 $stmt = $conn->prepare($query);
 if (!$stmt) die("Error preparing statement: " . $conn->error);
@@ -46,15 +40,14 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-
 // Get student enrollment statistics for teacher's courses
 $enrollment_stats = [];
 foreach ($taught_courses as $course) {
-    $query = "SELECT
+    $query = "SELECT 
                 COUNT(*) as total_students,
                 AVG(completed) as avg_progress,
                 SUM(CASE WHEN completed = 100 THEN 1 ELSE 0 END) as completed_count
-              FROM student_progress
+              FROM student_progress 
               WHERE course_id = ?";
     $stmt = $conn->prepare($query);
     if (!$stmt) die("Error preparing statement: " . $conn->error);
@@ -69,54 +62,6 @@ foreach ($taught_courses as $course) {
     }
     $stmt->close();
 }
-
-
-// Get pending assignments to grade for teacher's courses
-$query = "SELECT a.id as assignment_id, a.title, a.due_date,
-                 c.course_name,
-                 COUNT(s.id) as submissions_count
-          FROM assignments a
-          JOIN courses c ON a.course_id = c.id
-          JOIN users u ON c.teacher_id = u.id
-          LEFT JOIN submissions s ON a.id = s.assignment_id AND s.grade IS NULL
-          WHERE u.teacher_code = ?
-          GROUP BY a.id, a.title, a.due_date, c.course_name
-          HAVING submissions_count > 0
-          ORDER BY a.due_date ASC
-          LIMIT 5";
-$stmt = $conn->prepare($query);
-if (!$stmt) die("Error preparing statement: " . $conn->error);
-$stmt->bind_param("s", $teacher_code);
-$stmt->execute();
-$result = $stmt->get_result();
-$pending_assignments = [];
-while ($row = $result->fetch_assoc()) {
-    $pending_assignments[] = $row;
-}
-$stmt->close();
-
-
-// Get recently graded assignments
-$query = "SELECT a.title, c.course_name, COUNT(s.id) as graded_count, MAX(s.graded_at) as last_graded
-          FROM assignments a
-          JOIN courses c ON a.course_id = c.id
-          JOIN users u ON c.teacher_id = u.id
-          JOIN submissions s ON a.id = s.assignment_id
-          WHERE u.teacher_code = ? AND s.grade IS NOT NULL
-          GROUP BY a.title, c.course_name
-          ORDER BY last_graded DESC
-          LIMIT 3";
-$stmt = $conn->prepare($query);
-if (!$stmt) die("Error preparing statement: " . $conn->error);
-$stmt->bind_param("s", $teacher_code);
-$stmt->execute();
-$result = $stmt->get_result();
-$graded_assignments = [];
-while ($row = $result->fetch_assoc()) {
-    $graded_assignments[] = $row;
-}
-$stmt->close();
-
 
 // Get top performing students in teacher's courses
 $query = "SELECT u.username, c.course_name, sp.completed, sp.last_accessed
@@ -138,16 +83,14 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-
 // Peer Review Forum Data
 $selected_course_id = $_GET['course_id'] ?? ($taught_courses[0]['id'] ?? null);
-
 
 // Retrieve posts for the selected course
 $posts = [];
 if ($selected_course_id) {
-    $postQuery = "SELECT pp.id, pp.content, pp.created_at, pp.file_path, u.email FROM peer_posts pp
-                  JOIN users u ON pp.user_id = u.id
+    $postQuery = "SELECT pp.id, pp.content, pp.created_at, pp.file_path, u.email FROM peer_posts pp 
+                  JOIN users u ON pp.user_id = u.id 
                   WHERE pp.course_id = ? ORDER BY pp.created_at DESC";
     $postStmt = $conn->prepare($postQuery);
     if ($postStmt) {
@@ -161,7 +104,6 @@ if ($selected_course_id) {
     }
 }
 
-
 $selected_course_name = 'Selected Course';
 foreach ($taught_courses as $course) {
     if ($course['id'] == $selected_course_id) {
@@ -170,13 +112,11 @@ foreach ($taught_courses as $course) {
     }
 }
 
-
 // Handle new post with file upload
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_POST['course_id'])) {
     $content = trim($_POST['content']);
     $selected_course_id = intval($_POST['course_id']);
     $filename = null;
-
 
     if (!empty($_FILES['file']['name'])) {
         $allowed_extensions = ['cpp', 'java', 'py', 'php', 'txt'];
@@ -185,13 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
         $original_name = basename($_FILES['file']['name']);
         $ext = pathinfo($original_name, PATHINFO_EXTENSION);
 
-
         if (in_array(strtolower($ext), $allowed_extensions)) {
             $filename = uniqid() . "_" . $original_name;
             move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir . $filename);
         }
     }
-
 
     if (!empty($content) && $selected_course_id > 0) {
         $stmt = $conn->prepare("INSERT INTO peer_posts (user_id, content, course_id, file_path) VALUES (?, ?, ?, ?)");
@@ -205,7 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -232,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
       <a href="logout.php" class="text-sm font-semibold hover:text-gray-300 transition-colors duration-300">Logout</a>
     </nav>
   </header>
- 
+  
   <div class="max-w-6xl mx-auto mt-16 p-8 bg-white rounded-lg shadow-xl">
     <!-- Page Header -->
     <div class="text-center mb-10">
@@ -247,9 +184,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
         </div>
       <?php endif; ?>
     </div>
-   
+    
     <!-- Quick Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
       <div class="bg-blue-100 p-6 rounded-lg shadow">
         <h3 class="text-lg font-semibold text-blue-800">Courses Taught</h3>
         <p class="text-3xl font-bold text-blue-600 mt-2"><?= count($taught_courses) ?></p>
@@ -260,43 +197,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
           <?= array_sum(array_column($enrollment_stats, 'total_students')) ?>
         </p>
       </div>
-      <div class="bg-purple-100 p-6 rounded-lg shadow">
-        <h3 class="text-lg font-semibold text-purple-800">Pending Assignments</h3>
-        <p class="text-3xl font-bold text-purple-600 mt-2"><?= count($pending_assignments) ?></p>
-      </div>
     </div>
-   
+    
     <!-- Tab Navigation -->
     <nav class="mb-10 border-b border-gray-300">
       <ul class="flex justify-center space-x-6">
         <li>
-          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="my-courses">My Courses</a>
+          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300 border-b-2 border-blue-600" data-tab="my-courses">My Courses</a>
         </li>
         <li>
           <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="student-progress">Student Progress</a>
-        </li>
-        <li>
-          <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="grade-assignments">Grade Assignments</a>
         </li>
         <li>
           <a href="#" class="tab-link inline-block py-2 px-4 font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300" data-tab="peer-forum">Peer Forum</a>
         </li>
       </ul>
     </nav>
-   
+    
     <!-- Tab Contents -->
     <div class="space-y-10">
       <!-- My Courses Tab -->
       <div id="my-courses" class="tab-content fade-in active">
         <div class="p-6 bg-gray-50 rounded-lg shadow">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-2xl font-semibold text-gray-800">My Courses</h3>
-
-              <a href="create_course.php" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-300">
-              Create New Course
-            </a>
-          </div>
-         
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">My Courses</h3>
+          
           <div class="overflow-x-auto">
             <table class="min-w-full">
               <thead class="bg-blue-600 text-white">
@@ -304,7 +228,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
                   <th class="px-4 py-3 text-left">Course Name</th>
                   <th class="px-4 py-3 text-left">Description</th>
                   <th class="px-4 py-3 text-left">Students</th>
-                  <th class="px-4 py-3 text-left">Actions</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200">
@@ -314,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
                       <td class="px-4 py-3 font-medium"><?= htmlspecialchars($course['course_name']) ?></td>
                       <td class="px-4 py-3"><?= htmlspecialchars($course['description'] ?? 'No description') ?></td>
                       <td class="px-4 py-3">
-                        <?php
+                        <?php 
                           $student_count = 0;
                           foreach ($enrollment_stats as $stat) {
                               if ($stat['course_id'] == $course['id']) {
@@ -325,22 +248,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
                           echo $student_count;
                         ?>
                       </td>
-                      <td class="px-4 py-3 space-x-2">
-                        <a href="manage_course.php?course_id=<?= $course['id'] ?>" class="inline-block bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded transition duration-300">
-                          Manage
-                        </a>
-                        <a href="edit_course.php?course_id=<?= $course['id'] ?>" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition duration-300">
-                          Edit
-                        </a>
-                        <a href="delete_course.php?course_id=<?= $course['id'] ?>" onclick="return confirm('Are you sure you want to delete this course? This cannot be undone.');" class="inline-block bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition duration-300">
-                          Delete
-                        </a>
-                      </td>
                     </tr>
                   <?php endforeach; ?>
                 <?php else: ?>
                   <tr>
-                    <td colspan="4" class="px-4 py-3 text-center text-gray-500">You are not teaching any courses yet.</td>
+                    <td colspan="3" class="px-4 py-3 text-center text-gray-500">You are not teaching any courses yet.</td>
                   </tr>
                 <?php endif; ?>
               </tbody>
@@ -349,12 +261,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
         </div>
       </div>
 
-
       <!-- Student Progress Tab -->
       <div id="student-progress" class="tab-content">
         <div class="p-6 bg-gray-50 rounded-lg shadow">
           <h3 class="text-2xl font-semibold text-gray-800 mb-4">Student Progress Overview</h3>
-         
+          
           <?php if (!empty($enrollment_stats)): ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
               <?php foreach ($enrollment_stats as $stat): ?>
@@ -383,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
           <?php else: ?>
             <p class="text-gray-500">No student progress data available.</p>
           <?php endif; ?>
-         
+          
           <div class="mt-6 p-4 bg-white rounded-lg shadow border border-gray-200">
             <h4 class="font-semibold text-lg mb-3">Top Performing Students</h4>
             <div class="overflow-x-auto">
@@ -423,77 +334,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
         </div>
       </div>
 
-
-      <!-- Grade Assignments Tab -->
-      <div id="grade-assignments" class="tab-content">
-        <div class="p-6 bg-gray-50 rounded-lg shadow">
-          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Grade Assignments</h3>
-         
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Pending Assignments -->
-            <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
-              <h4 class="font-semibold text-lg mb-3 flex justify-between items-center">
-                <span>Pending Grading</span>
-                <span class="text-sm bg-red-600 text-white px-2 py-1 rounded-full"><?= count($pending_assignments) ?></span>
-              </h4>
-             
-              <?php if (!empty($pending_assignments)): ?>
-                <div class="space-y-3">
-                  <?php foreach ($pending_assignments as $assignment): ?>
-                    <div class="border-b border-gray-200 pb-3 last:border-0 last:pb-0">
-                      <div class="font-medium"><?= htmlspecialchars($assignment['title']) ?></div>
-                      <div class="text-sm text-gray-600">Course: <?= htmlspecialchars($assignment['course_name']) ?></div>
-                      <div class="text-sm text-gray-600">Due: <?= date('M j, Y', strtotime($assignment['due_date'])) ?></div>
-                      <div class="text-sm text-gray-600">Submissions: <?= $assignment['submissions_count'] ?></div>
-                      <a href="grade_assignment.php?assignment_id=<?= $assignment['assignment_id'] ?>" class="inline-block mt-1 bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm transition duration-300">
-                        Grade Now
-                      </a>
-                    </div>
-                  <?php endforeach; ?>
-                </div>
-                <a href="view_all_assignments.php?status=pending" class="inline-block mt-3 text-blue-600 hover:text-blue-800 text-sm font-medium">
-                  View all pending assignments →
-                </a>
-              <?php else: ?>
-                <p class="text-gray-500">No assignments pending grading.</p>
-              <?php endif; ?>
-            </div>
-           
-            <!-- Recently Graded -->
-            <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
-              <h4 class="font-semibold text-lg mb-3">Recently Graded</h4>
-             
-              <?php if (!empty($graded_assignments)): ?>
-                <div class="space-y-3">
-                  <?php foreach ($graded_assignments as $assignment): ?>
-                    <div class="border-b border-gray-200 pb-3 last:border-0 last:pb-0">
-                      <div class="font-medium"><?= htmlspecialchars($assignment['title']) ?></div>
-                      <div class="text-sm text-gray-600">Course: <?= htmlspecialchars($assignment['course_name']) ?></div>
-                      <div class="text-sm text-gray-600">Graded: <?= $assignment['graded_count'] ?> submissions</div>
-                      <div class="text-sm text-gray-600">Last graded: <?= date('M j', strtotime($assignment['last_graded'])) ?></div>
-                      <a href="view_grades.php?assignment_title=<?= urlencode($assignment['title']) ?>" class="inline-block mt-1 bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded text-sm transition duration-300">
-                        View Grades
-                      </a>
-                    </div>
-                  <?php endforeach; ?>
-                </div>
-                <a href="view_all_assignments.php?status=graded" class="inline-block mt-3 text-blue-600 hover:text-blue-800 text-sm font-medium">
-                  View all graded assignments →
-                </a>
-              <?php else: ?>
-                <p class="text-gray-500">No recently graded assignments.</p>
-              <?php endif; ?>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
       <!-- Peer Forum Tab -->
       <div id="peer-forum" class="tab-content">
         <div class="p-6 bg-gray-50 rounded-lg shadow">
           <h3 class="text-4xl font-bold text-purple-700 text-center mb-8">💬 Peer Review Forum</h3>
-
 
           <!-- New Post Form -->
           <div class="mb-10">
@@ -515,7 +359,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
               <button type="submit" class="mt-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-5 py-2 rounded">Post</button>
             </form>
           </div>
-
 
           <!-- All Posts for Selected Course -->
           <div>
@@ -544,21 +387,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
     </div>
   </div>
 
-
   <script>
     // Tab switching functionality
     const tabLinks = document.querySelectorAll('.tab-link');
     const tabContents = document.querySelectorAll('.tab-content');
 
-
     tabLinks.forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
-       
+        
         // Remove active classes
         tabLinks.forEach(l => l.classList.remove('border-b-2', 'border-blue-600'));
         tabContents.forEach(c => c.classList.remove('active', 'fade-in'));
-       
+        
         // Add active classes to clicked tab
         const tabId = this.getAttribute('data-tab');
         const activeTab = document.getElementById(tabId);
@@ -567,7 +408,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
       });
     });
 
-       // Activate first tab by default
+    // Activate first tab by default
     document.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash;
       if (hash) {
@@ -579,9 +420,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content']) && isset($_
       }
       document.querySelector('.tab-link').click();
     });
-      
   </script>
 </body>
 </html>
-
-
